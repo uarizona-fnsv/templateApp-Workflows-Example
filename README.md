@@ -11,8 +11,7 @@ TemplateApp is a starter template for building new Vue.js applications for Busin
   - [Running the Application](#running-the-application)
 - [Project Structure](#project-structure)
 - [Available Scripts](#available-scripts)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
@@ -76,6 +75,21 @@ TemplateApp/
 │   └── main.js         # Entry point
 ├── package.json        # Project metadata and dependencies
 └── README.md           # Project documentation
+```
 
+## Available Scripts
+
+Below are the scripts available for this project:
+
+- **`npm run dev`**: Launches the development server with hot-reloading.
+- **`npm run build`**: Builds the application for production.
+
+### Script Details
+
+- **`npm run dev`**
+    - Launches the development server with hot-reloading, allowing you to see changes in real-time. The application will be available at [http://localhost:3000](http://localhost:3000) by default.
+
+- **`npm run build`**
+    - Builds the application for production. The output files will be located in the `dist` folder and optimized for performance.
 
 
