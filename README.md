@@ -20,10 +20,12 @@ TemplateApp is a starter template for building new Vue.js applications for Busin
 - Basic project structure and components
 - Pinia for state management
 - Vue Router for client-side routing
+- UofA Branding, Styling
 - Webauth authentication
 - API calls to get employee Profile information
 - Employee Search
 - Building Search
+- Other example components
 
 ## Requirements
 
