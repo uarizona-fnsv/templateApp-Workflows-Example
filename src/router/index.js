@@ -14,25 +14,25 @@ const router = createRouter({
 			path: '/',
 			name: 'Home',
 			component: Home,
-			beforeEnter() { ui.pageTitle="Request Lyft Code" },
+			beforeEnter() { ui.pageTitle="TemplateApp" },
 		},
 		{
 			path: '/About',
 			name: 'About',
 			component: About,
-			beforeEnter() { ui.pageTitle="Lyft Codes About" },
+			beforeEnter() { ui.pageTitle="TemplateApp About" },
 		},
 		{
 			path: '/Usage',
 			name: 'Usage',
 			component: Usage,
-			beforeEnter() { ui.pageTitle="Lyft Code Usage" },
+			beforeEnter() { ui.pageTitle="TemplateApp Usage" },
 		},
 		{
 			path: '/Upload',
 			name: 'Upload',
 			component: Upload,
-			beforeEnter() { ui.pageTitle="Lyft Code Upload" },
+			beforeEnter() { ui.pageTitle="TemplateApp Upload" },
 		},
 	]
 })

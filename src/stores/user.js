@@ -67,7 +67,7 @@ actions: {
 	async initializeData() {
 		ui.loading = true
 		await Promise.all([ 
-			this.fetchIsSuperUser(),
+			//this.fetchIsSuperUser(),
 			this.fetchUserProfile()
 		])
 		ui.loading = false

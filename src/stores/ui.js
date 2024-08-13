@@ -7,7 +7,7 @@ state: () => ({
     snack: false,
     snackText: null,
     snackColor: "warning",
-    pageTitle: "Request Lyft Code"
+    pageTitle: "TemplateApp"
 }),
 
 getters: {
