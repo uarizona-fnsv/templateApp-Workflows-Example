@@ -1,29 +1,59 @@
-# README #
+# TemplateApp
 
-This README would normally document whatever steps are necessary to get your application up and running.
+TemplateApp is a starter template for building new applications using Vue.js. It provides a basic structure and configuration to streamline the development process, enabling your team to focus on application-specific features.
 
-### What is this repository for? ###
+## Table of Contents
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [Available Scripts](#available-scripts)
+- [Contributing](#contributing)
+- [License](#license)
 
-### How do I get set up? ###
+## Features
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+- Vue.js framework
+- Basic project structure and components
+- Pinia for state management
+- Vue Router for client-side routing
+- Pre-installed dependencies for a quick start
 
-### Contribution guidelines ###
+## Requirements
 
-* Writing tests
-* Code review
-* Other guidelines
+Before you start, ensure you have the following installed on your development environment:
 
-### Who do I talk to? ###
+- [Node.js](https://nodejs.org/) (version 18.x or later)
+- [npm](https://www.npmjs.com/) (version 6.x or later)
 
-* Repo owner or admin
-* Other community or team contact
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/yourusername/TemplateApp.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd TemplateApp
+    ```
+
+3. Install the dependencies:
+
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+To start the application in development mode, run the following command:
+
+```bash
+npm run dev
