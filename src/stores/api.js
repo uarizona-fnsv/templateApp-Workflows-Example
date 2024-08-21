@@ -1,18 +1,21 @@
 import { defineStore } from 'pinia'
 import { user, ui } from '../stores'
 
+// API.JS
+// DATASTORE AND ACTIONS SPECIFIC TO THIS APPLICATION'S DATA
+
 export const useApi = defineStore('api', {
 state: () => ({ 
     requestCodeReturn: null,
     buildings: null,
 }),
 
-// Actions (usually FETCH) specific to this application function, not related to user, or ui.
 actions: {    
-    // Buildings from Space Database with supporting properties
+    // EXAMPLE FETCH
+    // Buildings from Space Database
     fetchBuildings () {
         console.log("Action: fetchBuildings") 
-        return fetch('https://api.pdc.arizona.edu/buildings', { headers: this.headers })
+        return fetch('https://api.pdc.arizona.edu/buildings', { headers: user.headers })
         .then(response => response.json())
         .then(data => { 
             this.buildings = data

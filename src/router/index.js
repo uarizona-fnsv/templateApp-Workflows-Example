@@ -38,7 +38,7 @@ const router = createRouter({
 })
 
 // Before any route is resolved, execute this code
-router.beforeResolve(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
 	if (!user.token || user.token == 'undefined') {		
 		
 		let location = to.path //route user wants to go to

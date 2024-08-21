@@ -78,7 +78,7 @@ data: () => ({
 
 mounted() {
 	//Initial fetch of data
-	//api.fetchBuildings()
+	api.fetchBuildings()
 },
 
 computed: {
