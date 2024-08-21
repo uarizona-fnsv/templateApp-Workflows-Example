@@ -1,7 +1,7 @@
 <template>
 	<div :style="isPhone ? '' : 'margin-left: 100px;'">
-		<v-btn :block="isPhone" v-if="!api.requestCodeReturn" @click="requestCode" class="uabutton" width="200">
-			Request Code
+		<v-btn :block="isPhone" v-if="!api.requestCodeReturn" @click="" class="uabutton" width="200">
+			Perform Action
 			<v-progress-circular size="small" class="ml-2" v-if="loading" indeterminate></v-progress-circular>
 		</v-btn>
 		<v-card v-if="api.requestCodeReturn" :width="!isPhone ? '500' : 'auto'" class="mt-lg-4 pa-lg-6" :elevation="isPhone ? '0' : '1'">

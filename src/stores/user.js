@@ -5,7 +5,7 @@ export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useUser = defineStore('userStore', {
 state: () => ({
-	isSuperUser: false,
+	isSuperUser: true,
 	token: jscookie.get(API_JWT_AUTH), 
 	netid: null,
 }),
