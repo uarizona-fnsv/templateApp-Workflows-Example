@@ -4,10 +4,19 @@
 	</v-container>
 </template>
 
+<script setup>
+	import RequestCode from '@/components/RequestCode.vue'
+	import { api } from '@/stores'
+</script>
+
 <script>
 
 export default {
 data: () => ({}),
+
+mounted() {
+	api.fetchBuildings()
+},
 
 computed: {},
 methods: {},
@@ -18,7 +27,3 @@ methods: {},
 <style>
 </style>
 
-<script setup>
-import RequestCode from '@/components/RequestCode.vue'
-//import { ui, user} from '@/stores'   
-</script>

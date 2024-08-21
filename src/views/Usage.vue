@@ -35,6 +35,7 @@
 
 <script setup>
 import { api } from '@/stores'   
+import codeHistory from '@/sampleData/codeHistory.js'
 </script>
 
 <script>
@@ -42,7 +43,7 @@ import { api } from '@/stores'
 
 export default {
 data: () => ({
-	codeHistory: null,
+
 	codeType: { codeType: "TIA" },
 	search: null,
 	headers: [
@@ -61,7 +62,7 @@ data: () => ({
 }),
 
 async mounted() {
-	this.codeHistory = await api.fetchCodeHistory(this.codeType)
+	//this.codeHistory = await api.fetchCodeHistory(this.codeType)
 	this.calculatePctUsed()
 },
 
@@ -69,7 +70,7 @@ computed: {},
 
 methods: {
 	calculatePctUsed() {
-        this.codeHistory.forEach(item => {
+        codeHistory.forEach(item => {
             let totalCodes = item.details.length
             let usedCodes = item.details.filter(detail => detail.netID).length
             item.pctUsed = Math.floor((usedCodes / totalCodes) * 100)

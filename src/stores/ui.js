@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUI = defineStore('ui', {
 state: () => ({ 
-    //useDevDatabase: false,
+    // Found in .env file
     useDevDatabase: import.meta.env.VITE_APP_DEPLOYMENT === 'beta' ? true : false,
     snack: false,
     snackText: null,

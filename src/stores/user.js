@@ -44,6 +44,7 @@ actions: {
 
 	// Token used for API authentication/permissions
 	getToken(payload) {
+		console.log("Get Token")
 		return fetch('https://api1.ba.arizona.edu/api/jwt/getJWT/', {
 			headers: {
 				Accept: 'application/json',
@@ -65,7 +66,7 @@ actions: {
 		})
 	},
 
-	async initializeUser() {
+	async initialize() {
 		ui.loading = true
 		await Promise.all([ 
 			//this.fetchIsSuperUser(),
