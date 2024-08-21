@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ui, api } from '../stores'
 import jscookie from 'js-cookie'
-export const API_JWT_AUTH = 'lyft_code_jwt_auth'
+export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useUser = defineStore('userStore', {
 state: () => ({
@@ -11,7 +11,7 @@ state: () => ({
 }),
 
 actions: {
-	// Cookie is stored with Token, lasts one day
+	// Token is stored inside cookie, lasts one day
 	setToken(payload) {
 		console.log("Setting Token", payload)
 		jscookie.set(API_JWT_AUTH, payload, {expires: 1})
@@ -20,21 +20,22 @@ actions: {
 	},
 
 	// User Profile (Name, email etc)
-	async fetchUserProfile () {
+	async fetchUserNetID () {
     	console.log("Action: fetchUserNetID ")
     	await fetch('https://api1.ba.arizona.edu/api/lyftcodes/mynetid', { headers: this.headers })
     	.then(response => response.json())
     	.then(data => { this.netid = data.netid })
 	},
 
-	// Superuser has all rights
+	// Superuser has all rights.  Handy in simple rights scenarios. Designed per application.
     fetchIsSuperUser () {
         console.log("Action: fetchIsSuperUser ")
         return fetch('https://api1.ba.arizona.edu/api/lyftcodes/isSuperUser', { headers: this.headers })
         .then(response => response.json())
         .then(data => { 
-        	this.isSuperUser = data
-        	// In BETA deployment everyone is a SuperUser
+        	//this.isSuperUser = data
+
+        	// This optional code can be used to make everyone a SuperUser in beta deployment
         	/*if (import.meta.env.VITE_APP_DEPLOYMENT === 'beta') {
         		this.isSuperUser = true
         	} else { this.isSuperUser = data }*/
@@ -64,11 +65,11 @@ actions: {
 		})
 	},
 
-	async initializeData() {
+	async initializeUser() {
 		ui.loading = true
 		await Promise.all([ 
 			//this.fetchIsSuperUser(),
-			this.fetchUserProfile()
+			this.fetchUserNetID()			
 		])
 		ui.loading = false
 	},

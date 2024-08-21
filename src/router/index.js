@@ -37,8 +37,9 @@ const router = createRouter({
 	]
 })
 
+// Before any route is resolved, execute this code
 router.beforeResolve(async (to, from, next) => {
-	if (!user.token || user.token == 'undefined') {
+	if (!user.token || user.token == 'undefined') {		
 		
 		let location = to.path //route user wants to go to
 
@@ -85,9 +86,9 @@ router.beforeResolve(async (to, from, next) => {
 		}
 	}
 
-	await user.initializeData()   
+	await user.initializeUser()   
 
-	// Check isSuperUser for these routes
+	// These routes require isSuperUser
 	if (to.name === 'Usage' && !user.isSuperUser) { console.log("Denied"); next('/'); return; }
 	if (to.name === 'Upload' && !user.isSuperUser) { console.log("Denied"); next('/'); return; }
 

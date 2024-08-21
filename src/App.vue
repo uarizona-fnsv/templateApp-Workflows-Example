@@ -42,8 +42,6 @@
 
 				<v-list-item to="Upload" title="Upload" prepend-icon="mdi-file-upload-outline"></v-list-item>
 
-				<v-list-item title="Clear My Reserved Codes" prepend-icon="mdi-close-circle-outline" @click="api.postClearMyTIACodes(); drawer = !drawer;"></v-list-item>
-
 				<!-- <v-list-item to="about" title="About" prepend-icon="mdi-information" ></v-list-item> -->			
 				
 				<v-divider class="mt-4 mb-4"></v-divider>
@@ -77,6 +75,11 @@ data: () => ({
 	drawer: false,
 	loading: false,
 }),
+
+mounted() {
+	//Initial fetch of data
+	//api.fetchBuildings()
+},
 
 computed: {
 	isPhone() { return this.$vuetify.display.mobile },  
