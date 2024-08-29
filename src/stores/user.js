@@ -5,9 +5,10 @@ export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useUser = defineStore('userStore', {
 state: () => ({
-	isSuperUser: true,
-	token: jscookie.get(API_JWT_AUTH), 
-	netid: null,
+	isSuperUser: 		true,
+	token: 				jscookie.get(API_JWT_AUTH), 
+	netid: 				null,
+	user: 				null,
 }),
 
 actions: {
@@ -20,11 +21,11 @@ actions: {
 	},
 
 	// User Profile (Name, email etc)
-	async fetchUserNetID () {
-    	console.log("Action: fetchUserNetID ")
-    	await fetch('https://api1.ba.arizona.edu/api/lyftcodes/mynetid', { headers: this.headers })
+	async fetchUserProfile () {
+    	console.log("Action: fetchUserProfile ")
+    	await fetch('https://api.ba.arizona.edu/common/api/ldap/lookup', { headers: api.headers })
     	.then(response => response.json())
-    	.then(data => { this.netid = data.netid })
+    	.then(data => { this.user = data })
 	},
 
 	// Superuser has all rights.  Handy in simple rights scenarios. Designed per application.
@@ -70,7 +71,7 @@ actions: {
 		ui.loading = true
 		await Promise.all([ 
 			this.fetchIsSuperUser(),
-			this.fetchUserNetID()			
+			this.fetchUserProfile(),			
 		])
 		ui.loading = false
 	},
