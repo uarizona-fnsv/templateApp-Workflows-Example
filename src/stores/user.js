@@ -9,6 +9,7 @@ state: () => ({
 	token: 				jscookie.get(API_JWT_AUTH), 
 	netid: 				null,
 	user: 				null,
+	initialized: 		false,
 }),
 
 actions: {
@@ -22,8 +23,8 @@ actions: {
 
 	// User Profile (Name, email etc)
 	async fetchUserProfile () {
-    	console.log("Action: fetchUserProfile ")
-    	await fetch('https://api.ba.arizona.edu/common/api/ldap/lookup', { headers: api.headers })
+    	console.log("Action: fetchUserProfile lookupPerson ")
+    	await fetch(api.commonApiUrl + '/lookupPerson', { headers: api.headers })
     	.then(response => response.json())
     	.then(data => { this.user = data })
 	},
@@ -31,7 +32,7 @@ actions: {
 	// Superuser has all rights.  Handy in simple rights scenarios. Designed per application.
     fetchIsSuperUser () {
         console.log("Action: fetchIsSuperUser ")
-        return fetch('https://api1.ba.arizona.edu/api/lyftcodes/isSuperUser', { headers: this.headers })
+        return fetch(api.commonApiUrl + '/isSuperUser', { headers: api.headers })
         .then(response => response.json())
         .then(data => { 
         	//this.isSuperUser = data
@@ -46,7 +47,7 @@ actions: {
 	// Token used for API authentication/permissions
 	getToken(payload) {
 		console.log("Get Token")
-		return fetch('https://api1.ba.arizona.edu/api/jwt/getJWT/', {
+		return fetch(api.commonApiUrl + '/getJWT/', {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
@@ -68,23 +69,20 @@ actions: {
 	},
 
 	async initialize() {
-		ui.loading = true
-		await Promise.all([ 
-			this.fetchIsSuperUser(),
-			this.fetchUserProfile(),			
-		])
-		ui.loading = false
-	},
-},
+		if (!this.initialized) {
+			this.initialized = true
+			ui.loading = true
+			
+			// Parallel fetching, but wait for them all to finish
+			await Promise.all([ 
+				this.fetchIsSuperUser(),
+				this.fetchUserProfile(),			
+			])
 
-getters: {
-	headers: (state) => {
-		return {
-			'Authorization': state.token,
-			'database': ui.getDatabase,
-			'content-type': 'application/json',
-			'impersonate': state.impersonate
+			ui.loading = false			
 		}
 	},
 },
+
+
 })

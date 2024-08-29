@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Usage from '../views/Usage.vue'
+import ServiceDown from '../views/ServiceDown.vue'
 import { API_JWT_AUTH } from '@/stores/user'
 import { user, ui } from '@/stores'
 import jscookie from 'js-cookie'
@@ -26,6 +27,11 @@ const router = createRouter({
 			name: 'Usage',
 			component: Usage,
 			beforeEnter() { ui.pageTitle="TemplateApp Usage" },
+		},
+		{
+			path: '/ServiceDown',
+			name: 'ServiceDown',
+			component: ServiceDown,
 		},
 	]
 })
