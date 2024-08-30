@@ -68,8 +68,8 @@ router.beforeEach(async (to, from, next) => {
 	    }
 })
 
-// SET THE BETA AND PRODUCTION SERVER URLS FOR WEBAUTH TO RETURN TO
-// THESE ARE SWITCHED BASED ON A VALUE IN .ENV FILE
+// SET THE BETA AND PRODUCTION SERVER URLS FOR WEBAUTH TO RETURN TO.
+// THESE ARE SWITCHED BASED ON 'VITE_APP_DEPLOYMENT' IN .ENV FILE
 function determineServiceURL() {
     if (process.env.NODE_ENV === 'development') {
         return "http://localhost:" + window.location.port

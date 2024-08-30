@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ui, api } from '../stores'
 import jscookie from 'js-cookie'
+import router from '../router'
 export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useUser = defineStore('userStore', {
