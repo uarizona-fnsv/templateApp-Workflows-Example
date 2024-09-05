@@ -37,8 +37,9 @@ const router = createRouter({
 })
 
 // EXECUTED BEFORE ROUTING
-router.beforeEach(async (to, from, next) => {
-	    if (!user.token || user.token === 'undefined') {
+router.beforeEach(async (to, from) => {
+
+	    if ((!user.token || user.token === 'undefined') && to.name !== 'ServiceDown') {
 	        console.log("No Token")
 	        
 	        const params = new URLSearchParams(window.location.search)
@@ -47,25 +48,26 @@ router.beforeEach(async (to, from, next) => {
 	        let serviceURL = determineServiceURL()
 
 	        if (!ticket) {
-	            redirectToWebAuth(serviceURL + location)
-	            return
+	            redirectToWebAuth(serviceURL + location) 
 	        }
 
-	        await user.getToken({ ticket, location, serviceURL })
+	        const tokenResult = await user.getToken({ ticket, location, serviceURL })
+			if (!tokenResult) { return '/ServiceDown'}
 	        cleanUpURL()
 	        window.location.reload()
-	        return
-	    }
 
 	    // ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES
-	    await user.initialize()
-
+		
+	    	await user.initialize()
+		
 	    // EXAMPLE OF HOW TO GATE OFF ROUTES BASED ON USER RIGHTS
 	    if ((to.name === 'Usage' || to.name === 'Admin') && !user.isSuperUser) {
-	        next('/')
+	       return '/'
 	    } else {
-	        next()
+	       return true
 	    }
+	}
+		
 })
 
 // SET THE BETA AND PRODUCTION SERVER URLS FOR WEBAUTH TO RETURN TO.
