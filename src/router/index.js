@@ -56,7 +56,7 @@ router.beforeEach(async (to, from) => {
 	        cleanUpURL()
 	        window.location.reload()
 
-	    // ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES
+	    // INITIALIZE/GET ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES
 		
 	    	await user.initialize()
 		
