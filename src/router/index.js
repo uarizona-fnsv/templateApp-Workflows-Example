@@ -55,10 +55,11 @@ router.beforeEach(async (to, from) => {
 			if (!tokenResult) { return '/ServiceDown'}
 	        cleanUpURL()
 	        window.location.reload()
+	    }
 
 	    // INITIALIZE/GET ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES
 		
-	    	await user.initialize()
+	    await user.initialize()
 		
 	    // EXAMPLE OF HOW TO GATE OFF ROUTES BASED ON USER RIGHTS
 	    if ((to.name === 'Usage' || to.name === 'Admin') && !user.isSuperUser) {
@@ -66,7 +67,6 @@ router.beforeEach(async (to, from) => {
 	    } else {
 	       return true
 	    }
-	}
 		
 })
 
