@@ -13,8 +13,9 @@ pipelines:
           - dist/**
 
     - step:
-        name: Deploy to IIS via UNC Path
+        name: Deploy to IIS using Web Deploy
         deployment: production
         script:
-          - apt-get update && apt-get install -y smbclient
-          - smbclient //ufs-webapps3.bluecat.arizona.edu/inetpub/apps.ba.arizona.edu -U $IIS_USERNAME%$IIS_PASSWORD -c "mkdir $template; recurse; prompt; mput dist/*"
+          - apt-get update && apt-get install -y zip curl
+          - zip -r vue-app.zip dist
+          - curl -v -X POST "ufs-we-loadb-i5y4frjnejjx-1345884426.us-west-2.elb.amazonaws.com:8172/msdeploy.axd?site=apps.ba.arizona.edu" -u "$IIS_USERNAME:$IIS_PASSWORD" -H "MSDeploy-Path: /template" -H "Content-Type: application/zip" --upload-file vue-app.zip
