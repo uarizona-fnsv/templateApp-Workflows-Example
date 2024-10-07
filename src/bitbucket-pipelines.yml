@@ -1,0 +1,20 @@
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        name: Build Vue.js Application
+        caches:
+          - node
+        script:
+          - npm install
+          - npm run build
+        artifacts:
+          - dist/**
+
+    - step:
+        name: Deploy to IIS via UNC Path
+        deployment: production
+        script:
+          - apt-get update && apt-get install -y smbclient
+          - smbclient //ufs-webapps3.bluecat.arizona.edu/inetpub/apps.ba.arizona.edu -U $IIS_USERNAME%$IIS_PASSWORD -c "mkdir $template; recurse; prompt; mput dist/*"
