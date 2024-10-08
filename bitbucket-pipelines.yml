@@ -11,11 +11,3 @@ pipelines:
           - npm run build
         artifacts:
           - dist/**
-
-    - step:
-        name: Deploy to IIS using Web Deploy
-        deployment: production
-        script:
-          - apt-get update && apt-get install -y zip curl
-          - zip -r vue-app.zip dist
-          - curl -v -X POST "ufs-we-loadb-i5y4frjnejjx-1345884426.us-west-2.elb.amazonaws.com:8172/msdeploy.axdsite=apps.ba.arizona.edu" -u "$IIS_USERNAME:$IIS_PASSWORD" --upload-file vue-app.zip
