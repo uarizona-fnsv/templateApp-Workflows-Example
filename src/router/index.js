@@ -50,12 +50,13 @@ router.beforeEach(async (to, from) => {
 
 	        if (!ticket) {
 	        	window.location.replace(webAuthURL + serviceURL + location)
-	        }
+	        } else {
 
-	        let tokenResult = await user.getToken({ ticket, location, serviceURL })
-			if (!tokenResult) { return '/ServiceDown'}
-	        cleanUpURL()
-	        window.location.reload()
+		        let tokenResult = await user.getToken({ ticket, location, serviceURL })
+				if (!tokenResult) { return '/ServiceDown'}
+		        cleanUpURL()
+		        window.location.reload()
+	    	}
 	    }
 
 	    // INITIALIZE/GET ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES		
