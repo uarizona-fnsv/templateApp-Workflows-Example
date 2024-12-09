@@ -24,7 +24,6 @@ getters: {
             'Authorization':    user.token,
             'database':         ui.getDatabase,
             'content-type':     'application/json',
-            'impersonate':      user.impersonate
         }
     },
 },

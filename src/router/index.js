@@ -39,37 +39,55 @@ const router = createRouter({
 // EXECUTED BEFORE ROUTING
 router.beforeEach(async (to, from) => {
 
-	    if ((!user.token || user.token === 'undefined') && to.name !== 'ServiceDown') {
-	        console.log("No Token")
-	        
-	        const params = new URLSearchParams(window.location.search)
-	        const ticket = params.get('ticket')
-	        const webAuthURL = "https://webauth.arizona.edu/webauth/login?service="
-	        let location = to.path
-	        let serviceURL = window.location.origin
+	// Routes that skip authorization
+	const noAuthRoutes = ['TUSExtRequest', 'TUSExtRelease', 'NotAuthorized'];
 
-	        if (!ticket) {
-	        	window.location.replace(webAuthURL + serviceURL + location)
-	        } else {
+	// Routes that will require superUser status for user
+	const superUserRoutes = ['Home'];
+	
+	// Skip Authentication for noAuthRoutes
+	if (noAuthRoutes.includes(to.name)) {
+		return
+	}
 
-		        let tokenResult = await user.getToken({ ticket, location, serviceURL })
-				if (!tokenResult) { return '/ServiceDown'}
-		        cleanUpURL()
-		        window.location.reload()
-	    	}
-	    }
-
-	    // INITIALIZE/GET ANY DATA SUCH AS RIGHTS NEEDED BEFORE FURTHER ROUTING AND FETCHES		
-	    await user.initialize()
+	// If there is no token saved, get ticket from webauth, and use that to get a JSON Web Token 
+	// Token will be used for authentication with all subsequent API calls.
+	if (!user.token || user.token == 'undefined') {
 		
-	    // EXAMPLE OF HOW TO GATE OFF ROUTES BASED ON USER RIGHTS
-	    // THESE ROUTES WILL BE REDIRECTED TO HOME IF NOT SUPERUSER
-	    if ((to.name === 'Usage' || to.name === 'Admin') && !user.isSuperUser) {
-	       return '/'
-	    } else {
-	       return true
-	    }
+		const webAuthURL = "https://webauth.arizona.edu/webauth/login?service="
+	    let location = to.path 
+	    let serviceURL = window.location.origin + (import.meta.env.BASE_URL != '/' ? import.meta.env.BASE_URL : '')
+
+	    const params = new URLSearchParams(window.location.search)
+	    const ticket = params.get('ticket')    
 		
+		// If we have a token, but don't have the ticket yet, go to Webauth to get a ticket. 
+		if (!ticket) { 
+			window.location.replace(webAuthURL + serviceURL + location)			
+		} else {
+			
+			// We have a ticket now.  Use it to get token, set cookie, set state token.
+			let token = await user.getToken({ticket, location, serviceURL})
+		
+			// Fix URL Appearance
+			let hostName = window.location.href.slice(0, window.location.href.indexOf("?"));
+			window.history.pushState('home', null, hostName);
+			window.location.reload()                    
+		}
+	}
+
+	// Fetch any data that is needed before going on (superUser, etc)
+	await user.initialize()   
+
+	// Some routes require superUser status
+	if (superUserRoutes.includes(to.name) && !user.isSuperUser) {
+		console.log("Denied")
+		return '/NotAuthorized'
+	}
+
+	// Proceed to the route
+	return
+
 })
 
 function cleanUpURL() {

@@ -38,7 +38,7 @@
 								
 				<v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
 				
-				<v-list-item to="Usage" title="Usage" prepend-icon="mdi-chart-box-outline"></v-list-item>
+				<v-list-item to="Usage" title="Data Table Example" prepend-icon="mdi-chart-box-outline"></v-list-item>
 
 				<!-- <v-list-item to="about" title="About" prepend-icon="mdi-information" ></v-list-item> -->			
 				

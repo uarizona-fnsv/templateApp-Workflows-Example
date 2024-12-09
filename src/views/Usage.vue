@@ -1,5 +1,6 @@
 <template>
 	<v-container v-if="codeHistory" class="pt-8" >	
+		<v-row class='text-h5 mb-6'>Sample Page Demonstrating Data Table w Search</v-row>
 		<v-row>
 			<v-col cols=2 align="center"><div class='text-h6'>FALL 2024</div></v-col>
 			<v-col><v-text-field 
