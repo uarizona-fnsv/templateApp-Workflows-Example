@@ -3,6 +3,9 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Usage from '../views/Usage.vue'
 import ServiceDown from '../views/ServiceDown.vue'
+import NotAuthorized from '../views/NotAuthorized.vue'
+import AdminExample from '../views/AdminExample.vue'
+
 import { API_JWT_AUTH } from '@/stores/user'
 import { user, ui } from '@/stores'
 import jscookie from 'js-cookie'
@@ -20,18 +23,30 @@ const router = createRouter({
 			path: '/About',
 			name: 'About',
 			component: About,
-			beforeEnter() { ui.pageTitle="TemplateApp About" },
+			beforeEnter() { ui.pageTitle="TemplateApp - About" },
 		},
 		{
 			path: '/Usage',
 			name: 'Usage',
 			component: Usage,
-			beforeEnter() { ui.pageTitle="TemplateApp Usage" },
+			beforeEnter() { ui.pageTitle="TemplateApp - Data Table" },
 		},
 		{
 			path: '/ServiceDown',
 			name: 'ServiceDown',
 			component: ServiceDown,
+		},
+		{
+			path: '/NotAuthorized',
+			name: 'NotAuthorized',
+			component: NotAuthorized,
+			beforeEnter() { ui.pageTitle="TemplateApp - Not Authorized" },
+		},
+		{
+			path: '/Admin-Example',
+			name: 'AdminExample',
+			component: AdminExample,
+			beforeEnter() { ui.pageTitle="TemplateApp - Admin-Example" },
 		},
 	]
 })
@@ -40,10 +55,10 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
 
 	// Routes that skip authorization
-	const noAuthRoutes = ['TUSExtRequest', 'TUSExtRelease', 'NotAuthorized'];
+	const noAuthRoutes = ['NotAuthorized'];
 
 	// Routes that will require superUser status for user
-	const superUserRoutes = ['Home'];
+	const superUserRoutes = ['AdminExample'];
 	
 	// Skip Authentication for noAuthRoutes
 	if (noAuthRoutes.includes(to.name)) {
