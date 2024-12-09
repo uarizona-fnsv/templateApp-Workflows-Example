@@ -69,6 +69,7 @@ actions: {
 		})
 	},
 
+	// This is executed immediately upon login, before going to route
 	async initialize() {
 		if (!this.initialized) {
 			this.initialized = true
