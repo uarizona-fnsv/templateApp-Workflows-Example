@@ -6,7 +6,6 @@ import { user, ui } from '../stores'
 
 export const useApi = defineStore('api', {
 state: () => ({ 
-    requestCodeReturn: null,
     buildings: null,
     useBetaAPI: false,
     commonApiUrl: "https://api.ba.arizona.edu/common"

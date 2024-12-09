@@ -1,11 +1,9 @@
 <template>
 	<v-container fluid>
-		<RequestCode />
 	</v-container>
 </template>
 
 <script setup>
-	import RequestCode from '@/components/RequestCode.vue'
 	import { api } from '@/stores'
 </script>
 
