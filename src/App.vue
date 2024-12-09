@@ -14,8 +14,7 @@
 				<v-row style="width: 100%;" :class="isPhone ? 'text-h6' : 'text-h4'" class="justify-center align-center font-weight-light">
 
 					<!-- MENU HAMBURGER -->
-					<v-app-bar-nav-icon class="ml-4" size="x-large" v-if="!isPhone && user.isSuperUser"
-						@click.stop="drawer = !drawer">
+					<v-app-bar-nav-icon class="ml-4" size="x-large" @click.stop="drawer = !drawer">
 					</v-app-bar-nav-icon>
 					
 					<!-- BLOCK A AND APPLICATION TITLE -->
@@ -39,11 +38,17 @@
 				<v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
 				
 				<v-list-item to="Usage" title="Data Table Example" prepend-icon="mdi-chart-box-outline"></v-list-item>
+				<v-list-item to="Admin-Example" title="Admin Example" prepend-icon="mdi-security"></v-list-item>
 
 				<!-- <v-list-item to="about" title="About" prepend-icon="mdi-information" ></v-list-item> -->			
 				
+				<!-- SWITCH EXAMPLE -->
+				<v-switch class="mt-6" label="SuperUser" v-model="user.isSuperUser" color="primary"></v-switch>
+
 				<v-divider class="mt-4 mb-4"></v-divider>
 				<v-spacer></v-spacer>
+
+				<!-- LOGO -->
 				<v-list-item>
 					<img :height="isPhone ? 40 : 50" alt="A Logo" src="@/assets/UA-PTS-logo.png">
 				</v-list-item>

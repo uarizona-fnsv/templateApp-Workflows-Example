@@ -36,7 +36,7 @@ actions: {
         return fetch(api.commonApiUrl + '/isSuperUser', { headers: api.headers })
         .then(response => response.json())
         .then(data => { 
-        	//this.isSuperUser = data
+        	this.isSuperUser = data
 
         	// This optional code can be used to make everyone a SuperUser in beta deployment
         	/*if (import.meta.env.VITE_APP_DEPLOYMENT === 'beta') {
@@ -77,7 +77,7 @@ actions: {
 			
 			// Parallel fetching, but wait for them all to finish
 			await Promise.all([ 
-				this.fetchIsSuperUser(),
+				//this.fetchIsSuperUser(),  // Fetch rights
 				this.fetchUserProfile(),			
 			])
 
