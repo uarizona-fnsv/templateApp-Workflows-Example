@@ -77,8 +77,8 @@ actions: {
 			
 			// Parallel fetching, but wait for them all to finish
 			await Promise.all([ 
-				//this.fetchIsSuperUser(),  // Fetch rights
-				this.fetchUserProfile(),			
+				//this.fetchIsSuperUser(),  // Example - Fetch rights
+				this.fetchUserProfile(),	// Example - Fetch user information		
 			])
 
 			ui.loading = false			
