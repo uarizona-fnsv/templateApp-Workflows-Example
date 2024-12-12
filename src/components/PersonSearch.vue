@@ -60,21 +60,18 @@ data: (props) => ({
 
 props: [ 'dataProp', 'label', 'readonly', 'name', 'rules', 'key1', 'variant', 'autoClear', 'disabled'], 
 
+// Only perform search if more than 3 letter characters, or exactly 8 or 16 numeric characters. EmplID / Catcard #
 watch: {
-	search (val) { val && val !== this.select && val.length > 3 && this.querySelections(val) }
-},
-
-/*watch: {
   search(val) {
     if (
       val &&
       val !== this.select &&
-      ((isNaN(val) && val.length > 3) || (!isNaN(val) && val.length > 7))
+      ((isNaN(val) && val.length > 3) || (!isNaN(val) && (val.length === 8 || val.length === 16)))
     ) {
       this.querySelections(val);
     }
   }
-},*/
+}, 
 
 
 methods: {
