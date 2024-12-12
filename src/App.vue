@@ -39,6 +39,7 @@
 				
 				<v-list-item to="Usage" title="Data Table Example" prepend-icon="mdi-chart-box-outline"></v-list-item>
 				<v-list-item to="Admin-Example" title="Admin Example" prepend-icon="mdi-security"></v-list-item>
+				<v-list-item to="CustomControls" title="Custom Controls" prepend-icon="mdi-cake"></v-list-item>
 
 				<!-- <v-list-item to="about" title="About" prepend-icon="mdi-information" ></v-list-item> -->			
 				

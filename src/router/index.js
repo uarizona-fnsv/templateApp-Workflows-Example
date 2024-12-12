@@ -5,6 +5,7 @@ import Usage from '../views/Usage.vue'
 import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
 import AdminExample from '../views/AdminExample.vue'
+import CustomControls from '../views/CustomControls.vue'
 
 import { API_JWT_AUTH } from '@/stores/user'
 import { user, ui } from '@/stores'
@@ -47,6 +48,12 @@ const router = createRouter({
 			name: 'AdminExample',
 			component: AdminExample,
 			beforeEnter() { ui.pageTitle="TemplateApp - Admin-Example" },
+		},
+		{
+			path: '/CustomControls',
+			name: 'CustomControls',
+			component: CustomControls,
+			beforeEnter() { ui.pageTitle="TemplateApp - Custom Controls" },
 		},
 	]
 })
