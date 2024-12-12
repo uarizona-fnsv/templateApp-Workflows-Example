@@ -25,7 +25,7 @@ actions: {
 	// User Profile (Name, email etc)
 	async fetchUserProfile () {
     	console.log("Action: fetchUserProfile lookupPerson ")
-    	await fetch(api.commonApiUrl + '/lookupPerson', { headers: api.headers })
+    	await fetch(api.commonApiUrl + '/lookupMyself', { headers: api.headers })
     	.then(response => response.json())
     	.then(data => { this.user = data })
 	},
