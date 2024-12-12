@@ -36,15 +36,6 @@
 			<v-list nav dense>	
 								
 				<v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
-				
-				<v-list-item to="Usage" title="Data Table Example" prepend-icon="mdi-chart-box-outline"></v-list-item>
-				<v-list-item to="Admin-Example" title="Admin Example" prepend-icon="mdi-security"></v-list-item>
-				<v-list-item to="CustomControls" title="Custom Controls" prepend-icon="mdi-cake"></v-list-item>
-
-				<!-- <v-list-item to="about" title="About" prepend-icon="mdi-information" ></v-list-item> -->			
-				
-				<!-- SWITCH EXAMPLE -->
-				<v-switch class="mt-6" label="SuperUser" v-model="user.isSuperUser" color="primary"></v-switch>
 
 				<v-divider class="mt-4 mb-4"></v-divider>
 				<v-spacer></v-spacer>

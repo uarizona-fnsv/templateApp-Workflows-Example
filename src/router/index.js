@@ -1,11 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-import Usage from '../views/Usage.vue'
 import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
-import AdminExample from '../views/AdminExample.vue'
-import CustomControls from '../views/CustomControls.vue'
 
 import { API_JWT_AUTH } from '@/stores/user'
 import { user, ui } from '@/stores'
@@ -27,12 +24,6 @@ const router = createRouter({
 			beforeEnter() { ui.pageTitle="TemplateApp - About" },
 		},
 		{
-			path: '/Usage',
-			name: 'Usage',
-			component: Usage,
-			beforeEnter() { ui.pageTitle="TemplateApp - Data Table" },
-		},
-		{
 			path: '/ServiceDown',
 			name: 'ServiceDown',
 			component: ServiceDown,
@@ -42,18 +33,6 @@ const router = createRouter({
 			name: 'NotAuthorized',
 			component: NotAuthorized,
 			beforeEnter() { ui.pageTitle="TemplateApp - Not Authorized" },
-		},
-		{
-			path: '/Admin-Example',
-			name: 'AdminExample',
-			component: AdminExample,
-			beforeEnter() { ui.pageTitle="TemplateApp - Admin-Example" },
-		},
-		{
-			path: '/CustomControls',
-			name: 'CustomControls',
-			component: CustomControls,
-			beforeEnter() { ui.pageTitle="TemplateApp - Custom Controls" },
 		},
 	]
 })
