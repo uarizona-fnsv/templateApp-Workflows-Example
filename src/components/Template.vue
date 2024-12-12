@@ -1,4 +1,16 @@
 <template>
+	<v-container>
+		<v-row>
+			<v-col class="pa-2 ma-2">COLUMN 1</v-col>
+			<v-col class="pa-2 ma-2">COLUMN 2</v-col>
+			<v-col class="pa-2 ma-2">COLUMN 3</v-col>			
+		</v-row>
+		<v-row>
+			<v-col class="pa-2 ma-2">COLUMN 1</v-col>
+			<v-col class="pa-2 ma-2">COLUMN 2</v-col>
+			<v-col class="pa-2 ma-2">COLUMN 3</v-col>			
+		</v-row>
+	</v-container>
 </template>
 
 <script setup>
@@ -7,13 +19,17 @@ import { user } from '@/stores'
 
 <script>
 export default {
-data: () => ({}),
+data: () => ({
+	exampleVariable: null
+}),
 
 computed: {
+	exampleComputed() {		
+		return exampleVariable
+	},
 },
 
 methods : {
-
 	clickHandler() {
 		console.log("Clicked")
 	},
