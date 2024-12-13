@@ -42,7 +42,7 @@
 
 				<!-- LOGO -->
 				<v-list-item>
-					<img :height="isPhone ? 40 : 50" alt="A Logo" src="@/assets/UA-PTS-logo.png">
+					<img :height="isPhone ? 40 : 50" alt="A Logo" src="@/assets/azs-parking-webheader_0.png">
 				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
