@@ -57,6 +57,8 @@ router.beforeEach(async (to, from) => {
 		
 		const webAuthURL = "https://webauth.arizona.edu/webauth/login?service="
 	    let location = to.path 
+
+	    // See vite.config.js for base (used in deployment)
 	    let serviceURL = window.location.origin + (import.meta.env.BASE_URL != '/' ? import.meta.env.BASE_URL : '')
 
 	    const params = new URLSearchParams(window.location.search)
