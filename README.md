@@ -94,3 +94,12 @@ Below are the scripts available for this project:
 
 - **`npm run build`**
     - Builds the application for production. The output files will be located in the `dist` folder and optimized for performance.
+    
+## Starting a new app from TemplateApp
+
+- Clone, npm install, npm run dev.  Make sure it runs
+- Do global search on 'TemplateApp', and address each instance.
+- Start new EMPTY repository on remote, no readme, no .gitignore.
+- Copy remote address
+- Edit local app's remote address with new remote address
+- Push
