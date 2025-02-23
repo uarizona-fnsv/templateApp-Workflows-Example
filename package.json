@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "_notes": "deploy scripts need to be modified before using",
     "serve": "vite preview",
     "build": "vite build",
-    "build:dev": "vite build && net use \"\\\\bats-betawebapp3.bluecat.arizona.edu\" /USER:%USERNAME% && robocopy dist \"\\\\bats-betawebapp3.bluecat.arizona.edu\\inetpub\\beta.apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
+    "_deploy:dev": "robocopy dist \"\\\\bats-betawebapp3.bluecat.arizona.edu\\inetpub\\beta.apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
+    "_deploy:prod": "robocopy dist \"\\\\bats-webapps3.bluecat.arizona.edu\\inetpub\\apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
+    "_build:deploy:dev": "npm run build && npm run deploy:dev",
+    "_build:deploy:prod": "npm run build && npm run deploy:prod",
     "dev": "vite",
     "preview": "vite preview"
   },
