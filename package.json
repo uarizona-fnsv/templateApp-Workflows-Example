@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vite preview",
     "build": "vite build",
+    "build:dev": "vite build && net use \"\\\\bats-betawebapp3.bluecat.arizona.edu\" /USER:%USERNAME% && robocopy dist \"\\\\bats-betawebapp3.bluecat.arizona.edu\\inetpub\\beta.apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
     "dev": "vite",
     "preview": "vite preview"
   },
