@@ -64,7 +64,7 @@ router.beforeEach(async (to, from) => {
 	    const params = new URLSearchParams(window.location.search)
 	    const ticket = params.get('ticket')    
 		
-		// If we have a token, but don't have the ticket yet, go to Webauth to get a ticket. 
+		// If we dont have a token, and don't have the ticket yet, go to Webauth to get a ticket. 
 		if (!ticket) { 
 			window.location.replace(webAuthURL + serviceURL + location)			
 		} else {
