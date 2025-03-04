@@ -25,7 +25,7 @@ export default createVuetify({
         colors: {
           UARed: '#AB0520', 
           UABlue: '#0C234B', 
-          UAWarmGray: '#F4EDE5B', 
+          UAWarmGray: '#F4EDE5', 
           UACoolGray: '#E2E9EB', 
           UAMidnight: '#001C48', 
           UAAzurite: '#1E5288', 
