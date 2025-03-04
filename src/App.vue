@@ -2,7 +2,7 @@
 	<v-app id="app"> <!-- style="background-color: #EAEAEF;" -->
 
 		<!-- UA MARCOMM BAR -->
-		<v-app-bar height="53" class="text-white elevation-0" color="#8b0015">
+		<v-app-bar height="53" class="text-white elevation-0" color="UARed">
 				<v-row class="pl-6">					
 					<img class="arizona-line-logo" alt="A Logo" src="@/assets/ua_wordmark_line_logo_white_rgb.min.svg">
 				</v-row>
