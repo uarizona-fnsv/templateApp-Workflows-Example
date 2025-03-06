@@ -73,9 +73,7 @@ router.beforeEach(async (to, from) => {
 			let token = await user.getToken({ticket, location, serviceURL})
 		
 			// Fix URL Appearance
-			let hostName = window.location.href.slice(0, window.location.href.indexOf("?"));
-			window.history.pushState('home', null, hostName);
-			window.location.reload()                    
+			cleanUpURL()                  
 		}
 	}
 
