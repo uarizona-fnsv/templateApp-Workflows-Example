@@ -1,6 +1,7 @@
 {
   "name": "template-app",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "_notes": "deploy scripts need to be modified before using",
@@ -14,18 +15,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mdi/font": "5.9.55",
+    "@mdi/font": "7.4.47",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
-    "pinia": "^2.2.2",
-    "vue": "^3.4.38",
-    "vue-router": "^4.2.2",
-    "vuetify": "^3.7.0",
-    "webfontloader": "^1.0.0"
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vuetify": "^3.7.16",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
-    "vite": "^5.2.7",
-    "vite-plugin-vuetify": "^2.0.3"
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.2.2",
+    "vite-plugin-vuetify": "^2.1.0"
   }
 }
