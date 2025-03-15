@@ -11,7 +11,13 @@ state: () => ({
 	netid: 				null,
 	user: 				null,
 	initialized: 		false,
+	roles:              null,
 }),
+
+getters: {
+	isUser: (state) => { return state.roles?.includes("user") },
+	isSigma: (state) => { return state.roles?.includes("sigma") } // Testing access denied
+},
 
 actions: {
 	// Token is stored inside cookie, lasts one day
@@ -29,6 +35,22 @@ actions: {
     	.then(response => response.json())
     	.then(data => { this.user = data })
 	},
+
+	// Fetch roles from doggo
+	fetchRoles (payload) {
+        console.log("Action: fetchRoles", payload)
+        return fetch(api.commonApiUrl + '/getDoggoRoles', 
+            {   headers: api.headers,
+                method: 'POST',
+                body: JSON.stringify(payload) 
+            })
+        .then(response => response.json())
+        .then(data => { 
+            console.log("Roles Fetched")
+			console.log(data)
+            this.roles = data
+        })
+    },
 
 	// Superuser has all rights.  Handy in simple rights scenarios. Designed per application.
     fetchIsSuperUser () {
@@ -48,7 +70,7 @@ actions: {
 	// Token used for API authentication/permissions
 	getToken(payload) {
 		console.log("Get Token")
-		return fetch(api.commonApiUrl + '/getJWT/', {
+		return fetch(api.commonApiUrl + '/getDoggoJwt/', {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
@@ -77,7 +99,7 @@ actions: {
 			
 			// Parallel fetching, but wait for them all to finish
 			await Promise.all([ 
-				//this.fetchIsSuperUser(),  // Example - Fetch rights
+				this.fetchRoles({app_id: ui.appId }), 
 				this.fetchUserProfile(),	// Example - Fetch user information		
 			])
 

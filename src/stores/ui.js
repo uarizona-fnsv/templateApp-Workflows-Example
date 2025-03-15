@@ -15,6 +15,11 @@ getters: {
         console.log("Vite App Deployment: ", import.meta.env.VITE_APP_DEPLOYMENT)
         return state.useDevDatabase == true ? 'dev' : 'not_dev'
     },
+    appId: (state) => {
+        return import.meta.env.VITE_APP_DEPLOYMENT === 'beta' 
+          ? import.meta.env.VITE_DOGGO_APP_ID_DEV 
+          : import.meta.env.VITE_DOGGO_APP_ID_PROD
+    },
 },
 
 })

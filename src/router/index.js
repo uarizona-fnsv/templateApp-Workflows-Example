@@ -78,7 +78,15 @@ router.beforeEach(async (to, from) => {
 	}
 
 	// Fetch any data that is needed before going on (superUser, etc)
-	await user.initialize()   
+	await user.initialize()  
+	
+	if (user.isUser) { console.log("Has the User Role") } 
+
+	// Deny non-users
+	if (!user.isUser) {
+		console.log("Denied")
+		return '/NotAuthorized'
+	}
 
 	// Some routes require superUser status
 	if (superUserRoutes.includes(to.name) && !user.isSuperUser) {
