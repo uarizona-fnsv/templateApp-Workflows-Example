@@ -71,6 +71,10 @@ data: () => ({
 	loading: false,
 }),
 
+mounted() {
+	console.log("Vite App Deployment: ", import.meta.env.VITE_APP_DEPLOYMENT)
+},
+
 computed: {
 	isPhone() { return this.$vuetify.display.mobile },  
 },

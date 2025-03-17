@@ -31,12 +31,15 @@ actions: {
     // EXAMPLE FETCH
     // Buildings from Space Database
     fetchBuildings () {
-        console.log("Action: fetchBuildings") 
+        console.log("Example of an Action")
+        console.log("Action: fetchBuildings")
+        console.log('https://api.pdc.arizona.edu/buildings') 
         return fetch('https://api.pdc.arizona.edu/buildings', { headers: this.headers })
         .then(response => response.json())
         .then(data => { 
             this.buildings = data
-            console.log("Buildings Fetched")
+            console.log("Example of Return Confirmation")
+            console.log("Buildings Fetched", data)
         })
     },
 },

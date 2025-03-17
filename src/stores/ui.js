@@ -12,7 +12,6 @@ state: () => ({
 
 getters: {
     getDatabase: (state) => {
-        console.log("Vite App Deployment: ", import.meta.env.VITE_APP_DEPLOYMENT)
         return state.useDevDatabase == true ? 'dev' : 'not_dev'
     },
     appId: (state) => {
