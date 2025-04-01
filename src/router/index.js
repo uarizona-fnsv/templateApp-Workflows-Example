@@ -99,6 +99,14 @@ router.beforeEach(async (to, from) => {
 
 })
 
+// Global After Navigation Hook. Removes the ticket from the URL after routing is complete.
+router.afterEach((to, from) => {
+	const params = new URLSearchParams(window.location.search)
+	if (params.has('ticket')) {
+		cleanUpURL()
+	}
+})
+
 function cleanUpURL() {
     let hostName = window.location.href.slice(0, window.location.href.indexOf("?"))
     window.history.pushState('home', 'TemplateApp', hostName)
