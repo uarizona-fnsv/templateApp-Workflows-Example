@@ -83,7 +83,8 @@ router.beforeEach(async (to, from) => {
 	if (user.isUser) { console.log("isUser", user.isUser) } 
 
 	// Deny non-users
-	if (!user.isUser) {
+	if (!user.token) {
+	//if (!user.isUser) {
 		console.log("Denied")
 		return '/NotAuthorized'
 	} else { console.log("User allowed to the requested route")}

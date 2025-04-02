@@ -99,7 +99,7 @@ actions: {
 			
 			// Parallel fetching, but wait for them all to finish
 			await Promise.all([ 
-				this.fetchRoles({app_id: ui.appId }), 
+				//this.fetchRoles({app_id: ui.appId }), 
 				this.fetchUserProfile(),	// Example - Fetch user information		
 			])
 
