@@ -63,15 +63,13 @@ actions: {
 	// This is executed immediately upon login, before going to route
 	async initialize() {
 		if (!this.initialized) {
-			this.initialized = true
-			ui.loading = true
-			
-			// Parallel fetching, but wait for them all to finish
+			this.initialized = true			
+					
+			// Parallel fetching, faster than a chain of awaits.  Will wait for them all to finish.
+			ui.loading = true	
 			await Promise.all([ 
-				//this.fetchRoles({app_id: ui.appId }), 
 				this.fetchUserProfile(),	// Example - Fetch user information		
 			])
-
 			ui.loading = false			
 		}
 	},
