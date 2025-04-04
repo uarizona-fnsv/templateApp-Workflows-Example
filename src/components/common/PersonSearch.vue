@@ -1,6 +1,9 @@
+<!-- 
+// This component is designed to be used as-is, should not need to modify this.  
+// Refer to ExampleApp and many other apps to see how it is implemented
+-->
+
 <template >
-	<!-- prop 'name' set prevents browser prefill -->
-	<!-- :search-input.sync="search" -->
 	<v-autocomplete 
 		:model-value="dataProp"	
 		v-model:search="search"	

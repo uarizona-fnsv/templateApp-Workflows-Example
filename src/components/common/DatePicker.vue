@@ -1,3 +1,8 @@
+<!-- 
+// This component is designed to be used as-is, should not need to modify this.  
+// Refer to Forms3 or Wheels apps to see how it is implemented
+-->
+
 <template>
   <v-menu v-model="isMenuOpen" :close-on-content-click="false">
     <template v-slot:activator="{ props }">

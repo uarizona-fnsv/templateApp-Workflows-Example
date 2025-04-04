@@ -53,7 +53,7 @@
 			<v-divider></v-divider>	
 			<v-progress-linear color="blue-grey-lighten-1" height="5" indeterminate v-if="ui.loading"></v-progress-linear>      
 			<router-view />
-			<SnackMessageBar />	
+			<SnackMessageBar />	<!-- See SnackMessageBar.vue for implementation  -->
 		</v-main>		
 
 	</v-app>
