@@ -1,5 +1,5 @@
 <template>
-	<v-app id="app"> <!-- style="background-color: #EAEAEF;" -->
+	<v-app id="app"> 
 
 		<!-- UA MARCOMM BAR -->
 		<v-app-bar height="53" class="text-white elevation-0" color="UARed">
@@ -13,7 +13,7 @@
 			:height="isPhone ? 70 : 100" :class="isPhone ? 'pl-5' : ''">
 				<v-row style="width: 100%;" :class="isPhone ? 'text-h6' : 'text-h4'" class="justify-center align-center font-weight-light">
 
-					<!-- MENU HAMBURGER -->
+					<!-- MENU HAMBURGER -- COMMENT OUT IF NO MENU FOR THIS APP -->
 					<v-app-bar-nav-icon class="ml-4" size="x-large" @click.stop="drawer = !drawer">
 					</v-app-bar-nav-icon>
 					
@@ -47,15 +47,13 @@
 			</v-list>
 		</v-navigation-drawer>
 
-		<!-- MAIN LAYOUT -->
+		<!-- MAIN LAYOUT INCLUDING ROUTER-VIEW.  ALL ROUTES APPEAR THERE -->
 		<v-main>
 			<v-divider></v-divider>	
 			<v-progress-linear color="blue-grey-lighten-1" height="5" indeterminate v-if="ui.loading"></v-progress-linear>      
 			<router-view />
 			<SnackMessageBar />	
-		</v-main>
-
-		<!-- ADDITIONAL APP COMPONENTS -->
+		</v-main>		
 
 	</v-app>
 </template>
@@ -68,7 +66,6 @@ name: 'App',
 
 data: () => ({
 	drawer: false,
-	loading: false,
 }),
 
 mounted() {
@@ -76,7 +73,7 @@ mounted() {
 },
 
 computed: {
-	isPhone() { return this.$vuetify.display.mobile },  
+	isPhone() { return this.$vuetify.display.mobile },  // A SHORTER HELPER FUNCTION
 },
 
 methods: {	
@@ -89,6 +86,7 @@ methods: {
 	import { ui, user, api } from '@/stores'
 </script>
 
+<!-- SOME APPLICATION WIDE STYLES -->
 <style>
 ::-webkit-scrollbar               { width: 16px; }
 ::-webkit-scrollbar-track         { background: #dde5ed; }
