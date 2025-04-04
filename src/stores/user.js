@@ -15,9 +15,9 @@ state: () => ({
 
 getters: {
 	// TODO: modify these to work with cerberus / token claims
-	isUser: (state) => { return state.roles?.includes("user") },
-	isAdmin: (state) => { return state.roles?.includes("admin") },
-	isSigma: (state) => { return state.roles?.includes("sigma") } // Tests access denied
+	isUser: 	(state) => { return state.roles?.includes("user") },
+	isAdmin: 	(state) => { return state.roles?.includes("admin") },
+	isSigma: 	(state) => { return state.roles?.includes("sigma") } // Tests access denied
 },
 
 actions: {

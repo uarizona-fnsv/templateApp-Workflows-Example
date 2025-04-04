@@ -9,7 +9,7 @@ export const useApi = defineStore('api', {
 state: () => ({   
     useDevDatabase: import.meta.env.VITE_APP_DEPLOYMENT === 'beta' ? true : false,  // Sets default database, can be switched at runtime by the user.  
 
-    useLocalAPI: false,
+    useLocalAPI:    false,
     localApiUrl:    "http://localhost:3000/api",                        // Local API for development/testing (if using a local backend with this)
     commonApiUrl:   "https://api.ba.arizona.edu/common",                // Common API for shared functionality (like user profile, etc)    
     prodApiUrl:     "https://api.ba.arizona.edu/templateApp/api",       // Production API for this application (templateApp)
