@@ -36,7 +36,7 @@ actions: {
 	// User Profile from EDS (Enterprise Directory Service)
 	async fetchUserProfile () {
     	console.log("Action: fetchUserProfile lookupPerson ")
-    	await fetch(api.commonApiUrl + '/lookupMyself', { headers: api.headers })
+    	await fetch(api.commonApiUrl + '/lookupMyself', { headers: api.commonApiHeaders })
     	.then(response => response.json())
     	.then(data => { this.user = data })
 	},

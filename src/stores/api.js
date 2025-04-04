@@ -3,7 +3,7 @@ import { user, ui } from '../stores'
 
 // API.JS
 // This store is used for external API definitions
-// They might just set a state variable for convenience, but should not obscure any important logic. 
+// They might set a state variable for convenience, but should not obscure any important logic. 
 
 export const useApi = defineStore('api', {
 state: () => ({   
@@ -26,10 +26,18 @@ getters: {
       },
 
     // Default header
-      headers: (state) => {
+    headers: (state) => {
         return {
-            //'Authorization':    `Bearer ${user.token}`,
-            'Authorization':    user.token,
+            'Authorization':    `Bearer ${user.token}`,
+            'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
+            'content-type':     'application/json',
+        }
+    },
+
+    commonApiHeaders: (state) => {
+        return {
+            'Authorization':    `${user.token}`,
+            'Authorization':    user.token,         // Common doesnt' take bearer
             'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
         }
