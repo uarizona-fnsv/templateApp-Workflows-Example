@@ -28,7 +28,7 @@ actions: {
 	},
 
 	setCookie(payload) {
-		console.log("Setting Cookie", payload)
+		console.log("Setting Cookie")
 		jscookie.set(API_JWT_AUTH, payload, {expires: 1})
 		if (!payload) { jscookie.remove(API_JWT_AUTH) }
 	},
@@ -58,7 +58,6 @@ actions: {
 				router.push({ name: 'ServiceDown' }) 
 			}})
 		.then((data) => {
-			this.setToken(data.token)
 			return data })
 		.catch((error) => {
 			router.push({ name: 'ServiceDown' })
