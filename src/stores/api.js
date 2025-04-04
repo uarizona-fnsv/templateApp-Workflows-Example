@@ -28,6 +28,7 @@ getters: {
     // Default header
       headers: (state) => {
         return {
+            //'Authorization':    `Bearer ${user.token}`,
             'Authorization':    user.token,
             'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
