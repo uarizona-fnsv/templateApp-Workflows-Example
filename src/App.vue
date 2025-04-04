@@ -36,6 +36,7 @@
 			<v-list nav dense>	
 								
 				<v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
+				<v-list-item to="/About" title="About" prepend-icon="mdi-information"></v-list-item>
 
 				<v-divider class="mt-4 mb-4"></v-divider>
 				<v-spacer></v-spacer>

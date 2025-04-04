@@ -1,33 +1,55 @@
 <template>
-	<v-container fluid >
-		<v-row justify="center" >
-			<v-col cols="12" sm="8" md="6" >
-				<v-card elevation="2" class="pa-4" >
-					<v-card-title class="headline font-weight-bold">About</v-card-title>
-					<v-divider class="mx-4"></v-divider>
+	<v-container fluid>
+		<v-row justify="center">
+			<v-col cols="12" sm="8" md="6">
+				<v-card color="UAAzurite" class="pb-4" :ripple="false">
+
+					<!-- CARD HEADER -->
+					<v-card color="UABlue" class="pl-1 rounded-lg rounded-b-0 text-white" :ripple="false">
+						<v-row no-gutters align="center" class="pa-3">
+							<!-- AVATAR -->
+							<v-col class="flex-grow-0 flex-shrink-1">
+								<v-avatar size="x-large" color="UAChili" class="text-h6 font-weight-regular rounded-lg"
+									rounded="0" style="letter-spacing: 1px;">
+									<v-icon icon="mdi-information" />
+								</v-avatar>
+							</v-col>
+
+							<!-- TITLE AND SUBTITLE -->
+							<v-col class="flex-grow-1 flex-shrink-0 ml-1">
+								<v-list-item class="listItemAdjust pb-0 text-h5 font-weight-light"
+									style="line-height: 1.2em;">University
+									Information Technlogy Services (UITS)</v-list-item>
+								<div class="px-4 font-weight-light" style="position: relative; top: -5px;">Business Operations</div>
+							</v-col>
+						</v-row>
+
+					</v-card>
+
+					<!-- CARD CONTENTS -->
 					<v-card-text class="mt-4">
-						A service from Parking & Transportation Services for distributing Lyft Event Codes
+						This application has various functions.
 					</v-card-text>
-					<v-card-actions>
-						<v-btn @click="goHome" color="primary">Ok</v-btn>
-					</v-card-actions>
 				</v-card>
 			</v-col>
 		</v-row>
 	</v-container>
 </template>
 
-		
+
 <script>
 export default {
-data: () => ({ 
-}),
+	data: () => ({}),
 
 
-methods: {
-	goHome() { this.$router.push({name: "Home"}) },
-}
+	methods: {
+		goHome() { this.$router.push({ name: "Home" }) },
+	}
 
 }
 </script>
+
+<style scoped>
+li { margin-top: 10px !important}
+</style>
 
