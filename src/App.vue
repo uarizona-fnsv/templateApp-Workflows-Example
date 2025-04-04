@@ -83,7 +83,7 @@ methods: {
 </script>
 
 <script setup>
-	import { ui, user, api } from '@/stores'
+	import { ui, user } from '@/stores'
 </script>
 
 <!-- SOME APPLICATION WIDE STYLES -->
