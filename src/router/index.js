@@ -4,12 +4,10 @@ import About from '../views/About.vue'
 import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
 
-import { API_JWT_AUTH } from '@/stores/user'
 import { user, ui } from '@/stores'
-import jscookie from 'js-cookie'
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
+	history: createWebHistory(import.meta.env.BASE_URL),  // Use the base URL from vite.config.js for deployment (if set)
 	routes: [
 		{
 			path: '/',
@@ -43,16 +41,18 @@ router.beforeEach(async (to, from) => {
 	// Routes that skip authorization
 	const noAuthRoutes = ['NotAuthorized'];
 
-	// Routes that will require superUser status for user
-	const superUserRoutes = ['AdminExample'];
+	// Routes that will require admin role
+	const adminUserRoutes = ['AdminExample'];
 	
 	// Skip Authentication for noAuthRoutes
 	if (noAuthRoutes.includes(to.name)) {
 		return
 	}
 
-	// If there is no token saved, get ticket from webauth, and use that to get a JSON Web Token 
+	// If there is no token saved, user will be sent to webauth, where they will return with a ticket in the URL, that will be used to get a JSON Web Token 
 	// Token will be used for authentication with all subsequent API calls.
+	// Token will contain claims for various claims (roles, permissions, etc) that can be used for authorization in the application.
+	// Token will also contain basic info such as name, emplid, netId
 	if (!user.token || user.token == 'undefined') {
 		
 		const webAuthURL = "https://webauth.arizona.edu/webauth/login?service="
@@ -61,16 +61,20 @@ router.beforeEach(async (to, from) => {
 	    // See vite.config.js for base (used in deployment)
 	    let serviceURL = window.location.origin + (import.meta.env.BASE_URL != '/' ? import.meta.env.BASE_URL : '')
 
-	    const params = new URLSearchParams(window.location.search)
+	    // Get the Ticket off the URL
+		const params = new URLSearchParams(window.location.search)
 	    const ticket = params.get('ticket')    
 		
-		// If we dont have a token, and don't have the ticket yet, go to Webauth to get a ticket. 
+		// If user does not have a token, and doesn't have at ticket (from the URL), go to Webauth to get a ticket. 
+		// User will return back to this router guard, there will be a page reload, and the URL will then contain a ticket.
 		if (!ticket) { 
 			window.location.replace(webAuthURL + serviceURL + location)			
 		} else {
 			
-			// We have a ticket now.  Use it to get token, set cookie, set state token.
+			// Having grabbed a ticket from Webauth.  Use it to get token, set cookie, set state token.
 			let token = await user.getToken({ticket, location, serviceURL})
+			await user.setToken(token)
+			await user.setCookie(token) // Save the token in a cookie for future requests
 		
 			// Fix URL Appearance
 			cleanUpURL()                  
@@ -90,7 +94,7 @@ router.beforeEach(async (to, from) => {
 	} else { console.log("User allowed to the requested route")}
 
 	// Some routes require superUser status
-	if (superUserRoutes.includes(to.name) && !user.isSuperUser) {
+	if (adminUserRoutes.includes(to.name) && !user.isAdmin) {
 		console.log("Denied")
 		return '/NotAuthorized'
 	}
