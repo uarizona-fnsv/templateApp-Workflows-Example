@@ -1,3 +1,5 @@
+// Use this store for UI state management.  "showUploadDialog", loading indicators, etc
+
 import { defineStore } from 'pinia'
 
 export const useUI = defineStore('ui', {
