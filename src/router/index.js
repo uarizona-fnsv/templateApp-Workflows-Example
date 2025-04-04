@@ -3,7 +3,6 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
-
 import { user, ui } from '@/stores'
 
 const router = createRouter({
@@ -83,17 +82,16 @@ router.beforeEach(async (to, from) => {
 
 	// Fetch any data that is needed before going on (superUser, etc)
 	await user.initialize()  
-	
-	if (user.isUser) { console.log("isUser", user.isUser) } 
 
-	// Deny non-users
+	// Deny non-users.  Some more open apps only a token is required.  For other apps, a user role might be required.
+	// This whole section can be commented out if User/Admin roles not used.
 	if (!user.token) {
 	//if (!user.isUser) {
 		console.log("Denied")
 		return '/NotAuthorized'
 	} else { console.log("User allowed to the requested route")}
 
-	// Some routes require superUser status
+	// Some routes require admin role
 	if (adminUserRoutes.includes(to.name) && !user.isAdmin) {
 		console.log("Denied")
 		return '/NotAuthorized'
@@ -101,7 +99,6 @@ router.beforeEach(async (to, from) => {
 
 	// Proceed to the route
 	return
-
 })
 
 // Global After Navigation Hook. Removes the ticket from the URL after routing is complete.
