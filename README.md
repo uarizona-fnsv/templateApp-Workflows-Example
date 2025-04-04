@@ -106,6 +106,12 @@ Below are the scripts available for this project:
 - Roles are store in the "Cerberus" system
 - An app-id in .env will match up to the Cerberus roles encoded into token
 
+## Store Design
+- store/app.js  - main store for this apps logic and state
+- store/api.js  - holds all external apis, no business logic
+- store/user.js - related to this users role, token, login
+- store/ui.js   - holds state for all ui, show/hide, loading, etc.
+
 ## Starting a new app from TemplateApp
 
 - Clone
