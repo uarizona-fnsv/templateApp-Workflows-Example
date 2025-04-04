@@ -54,8 +54,7 @@ actions: {
           .then(data => console.log("Secure Endpoint:", data))
       },
 
-    // EXAMPLE FETCH
-    // Buildings from Space Database
+    // EXAMPLE FETCH - Buildings from Space Database
     fetchBuildings () {
         console.log("Example of an Action")
         console.log("Action: fetchBuildings")
