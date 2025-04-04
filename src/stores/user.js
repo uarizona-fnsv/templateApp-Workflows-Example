@@ -15,20 +15,26 @@ state: () => ({
 }),
 
 getters: {
+	// TODO: modify these to work with cerberus / token claims
 	isUser: (state) => { return state.roles?.includes("user") },
-	isSigma: (state) => { return state.roles?.includes("sigma") } // Testing access denied
+	isAdmin: (state) => { return state.roles?.includes("admin") },
+	isSigma: (state) => { return state.roles?.includes("sigma") } // Tests access denied
 },
 
 actions: {
 	// Token is stored inside cookie, lasts one day
 	setToken(payload) {
 		console.log("Setting Token", payload)
-		jscookie.set(API_JWT_AUTH, payload, {expires: 1})
 		this.token = payload
+	},
+
+	setCookie(payload) {
+		console.log("Setting Cookie", payload)
+		jscookie.set(API_JWT_AUTH, payload, {expires: 1})
 		if (!payload) { jscookie.remove(API_JWT_AUTH) }
 	},
 
-	// User Profile (Name, email etc)
+	// User Profile from EDS (Enterprise Directory Service)
 	async fetchUserProfile () {
     	console.log("Action: fetchUserProfile lookupPerson ")
     	await fetch(api.commonApiUrl + '/lookupMyself', { headers: api.headers })
