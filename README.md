@@ -102,11 +102,9 @@ Below are the scripts available for this project:
     - Combines the build and deploy in one step.  This requires editing to remove the underscore and replace 'templateapp' with correct path.
      
 ## Roles and Permissions
-- Roles are permissions are from the "doggo" system (access.fso.arizona.edu).
-- New apps currently need to get fat-fingered into the postgres doggo database.
-- An app-id needs to match in this database to the local .env file (see repo)
-- Using the doggo interface, roles can be assigned
-- Roles are decoded into the user store in user.roles.  These can then be used on routes and more to hide/show UI components
+- JWT is generated in common API
+- Roles are store in the "Cerberus" system
+- An app-id in .env will match up to the Cerberus roles encoded into token
 
 ## Starting a new app from TemplateApp
 
