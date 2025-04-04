@@ -73,6 +73,7 @@ actions: {
 			// Parallel fetching, faster than a chain of awaits.  Will wait for them all to finish.
 			ui.loading = true	
 			await Promise.all([ 
+				//this.fetchSecurityTest(),	// Example - Security Test (ensure token is valid, show some claims)
 				this.fetchUserProfile(),	// Example - Fetch user information		
 			])
 			ui.loading = false			
