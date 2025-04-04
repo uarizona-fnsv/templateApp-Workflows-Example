@@ -36,37 +36,6 @@ actions: {
     	.then(data => { this.user = data })
 	},
 
-	// Fetch roles from doggo
-	fetchRoles (payload) {
-        console.log("Action: fetchRoles", payload)
-        return fetch(api.commonApiUrl + '/getDoggoRoles', 
-            {   headers: api.headers,
-                method: 'POST',
-                body: JSON.stringify(payload) 
-            })
-        .then(response => response.json())
-        .then(data => { 
-            console.log("Roles Fetched")
-			console.log(data)
-            this.roles = data
-        })
-    },
-
-	// Superuser has all rights.  Handy in simple rights scenarios. Designed per application.
-    fetchIsSuperUser () {
-        console.log("Action: fetchIsSuperUser ")
-        return fetch(api.commonApiUrl + '/isSuperUser', { headers: api.headers })
-        .then(response => response.json())
-        .then(data => { 
-        	this.isSuperUser = data
-
-        	// This optional code can be used to make everyone a SuperUser in beta deployment
-        	/*if (import.meta.env.VITE_APP_DEPLOYMENT === 'beta') {
-        		this.isSuperUser = true
-        	} else { this.isSuperUser = data }*/
-        })  
-    },
-
 	// Token used for API authentication/permissions
 	getToken(payload) {
 		console.log("Get Token")
