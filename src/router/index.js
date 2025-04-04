@@ -72,8 +72,8 @@ router.beforeEach(async (to, from) => {
 			
 			// Having grabbed a ticket from Webauth.  Use it to get token, set cookie, set state token.
 			let token = await user.getToken({ticket, location, serviceURL})
-			await user.setToken(token)
-			await user.setCookie(token) // Save the token in a cookie for future requests
+			await user.setToken(token.token)
+			await user.setCookie(token.token) // Save the token in a cookie for future requests
 		
 			// Fix URL Appearance
 			cleanUpURL()                  
