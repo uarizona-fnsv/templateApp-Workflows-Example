@@ -1,4 +1,6 @@
+// ui.js store
 // Use this store for UI state management.  "showUploadDialog", loading indicators, etc
+// This store should not contain any business logic or API calls.
 
 import { defineStore } from 'pinia'
 

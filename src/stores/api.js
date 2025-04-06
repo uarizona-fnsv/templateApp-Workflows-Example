@@ -1,19 +1,25 @@
-import { defineStore } from 'pinia'
-import { user, ui } from '../stores'
-
 // API.JS
 // This store is used for external API definitions
+// Contains almost entirely boilerplate code for API endpoints, headers, and URL management.
 // They might set a state variable for convenience, but should not obscure any important logic. 
+// Keep logic in app.js store.
+
+import { defineStore } from 'pinia'
+import jscookie from 'js-cookie'
+export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useApi = defineStore('api', {
-state: () => ({   
-    useDevDatabase: import.meta.env.VITE_APP_DEPLOYMENT === 'beta' ? true : false,  // Sets default database, can be switched at runtime by the user.  
-
+state: () => ({
+    token: 			jscookie.get(API_JWT_AUTH),    
+   
     useLocalAPI:    false,
     localApiUrl:    "http://localhost:3000/api",                        // Local API for development/testing (if using a local backend with this)
     commonApiUrl:   "https://api.ba.arizona.edu/common",                // Common API for shared functionality (like user profile, etc)    
     prodApiUrl:     "https://api.ba.arizona.edu/templateApp/api",       // Production API for this application (templateApp)
     betaApiUrl:     "https://beta.api.ba.arizona.edu/templateApp/api",  // Beta API for this application (templateApp)
+
+      // Sets default database, can be switched at runtime by the user.
+    useDevDatabase: import.meta.env.VITE_APP_DEPLOYMENT === 'beta' ? true : false,
 
     buildings: null,
 }),
@@ -28,7 +34,7 @@ getters: {
     // Default header
     headers: (state) => {
         return {
-            'Authorization':    `Bearer ${user.token}`,
+            'Authorization':    `Bearer ${state.token}`,
             'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
         }
@@ -36,8 +42,7 @@ getters: {
 
     commonApiHeaders: (state) => {
         return {
-            'Authorization':    `${user.token}`,
-            'Authorization':    user.token,         // Common doesnt' take bearer
+            'Authorization':    state.token,         // Common doesnt' take bearer
             'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
         }

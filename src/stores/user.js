@@ -1,16 +1,19 @@
+// user.js Store
+// This is the user store which handles authentication, token management, and user-related actions.
+// Token store in api.js to avoid circular references
+// Be careful not to import app.js here or create other circular references.
+
 import { defineStore } from 'pinia'
-import { ui, api } from '../stores'
+import { api } from '../stores' // Adding more stores here can cause circular references.
 import jscookie from 'js-cookie'
 import router from '../router'
 export const API_JWT_AUTH = 'templateApp_jwt_auth'
 
 export const useUser = defineStore('userStore', {
 state: () => ({
-	token: 				jscookie.get(API_JWT_AUTH), 
+	
 	netid: 				null,
-	user: 				null,
-	initialized: 		false,
-	roles:              null,
+	emplId: 			null,
 }),
 
 getters: {
@@ -24,21 +27,13 @@ actions: {
 	// Token is stored inside cookie, lasts one day
 	setToken(payload) {
 		console.log("Setting Token", payload)
-		this.token = payload
+		api.token = payload
 	},
 
 	setCookie(payload) {
 		console.log("Setting Cookie")
 		jscookie.set(API_JWT_AUTH, payload, {expires: 1})
 		if (!payload) { jscookie.remove(API_JWT_AUTH) }
-	},
-
-	// User Profile from EDS (Enterprise Directory Service)
-	async fetchUserProfile () {
-    	console.log("Action: fetchUserProfile lookupPerson ")
-    	await fetch(api.commonApiUrl + '/lookupMyself', { headers: api.commonApiHeaders })
-    	.then(response => response.json())
-    	.then(data => { this.user = data })
 	},
 
 	// Token used for API authentication/permissions
@@ -64,20 +59,7 @@ actions: {
 		})
 	},
 
-	// This is executed immediately upon login, before going to route
-	async initialize() {
-		if (!this.initialized) {
-			this.initialized = true			
-					
-			// Parallel fetching, faster than a chain of awaits.  Will wait for them all to finish.
-			ui.loading = true	
-			await Promise.all([ 
-				//this.fetchSecurityTest(),	// Example - Security Test (ensure token is valid, show some claims)
-				this.fetchUserProfile(),	// Example - Fetch user information		
-			])
-			ui.loading = false			
-		}
-	},
+	
 },
 
 

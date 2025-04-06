@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
-import { user, ui } from '@/stores'
+import { user, ui, api, app } from '@/stores'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),  // Use the base URL from vite.config.js for deployment (if set)
@@ -52,7 +52,7 @@ router.beforeEach(async (to, from) => {
 	// Token will be used for authentication with all subsequent API calls.
 	// Token will contain claims for various claims (roles, permissions, etc) that can be used for authorization in the application.
 	// Token will also contain basic info such as name, emplid, netId
-	if (!user.token || user.token == 'undefined') {
+	if (!api.token || api.token == 'undefined') {
 		
 		const webAuthURL = "https://webauth.arizona.edu/webauth/login?service="
 	    let location = to.path 
@@ -81,11 +81,11 @@ router.beforeEach(async (to, from) => {
 	}
 
 	// Fetch any data that is needed before going on (superUser, etc)
-	await user.initialize()  
+	await app.initialize()  
 
 	// Deny non-users.  Some more open apps only a token is required.  For other apps, a user role might be required.
 	// This whole section can be commented out if User/Admin roles not used.
-	if (!user.token) {
+	if (!api.token) {
 	//if (!user.isUser) {
 		console.log("Denied")
 		return '/NotAuthorized'
