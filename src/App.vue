@@ -95,16 +95,30 @@ methods: {
 ::-webkit-scrollbar-thumb:hover   { background: #555; }
 
 .uabutton {
-    border: 2px solid #8b0015 !important;
+    border: 2px solid !important;
     border-radius: 0 !important;
-    color: #8b0015 !important;
     cursor: pointer !important;
     background-color: #ffffff88;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.uabutton:hover {
+.uabutton.red {
+    border-color: #8b0015;
+    color: #8b0015 !important;
+}
+
+.uabutton.red:hover {
     background-color: #8b0015;
+    color: #fff !important;
+}
+
+.uabutton.blue {
+    border-color: #0C234B;
+    color: #0C234B !important;
+}
+
+.uabutton.blue:hover {
+    background-color: #0C234B;
     color: #fff !important;
 }
 
