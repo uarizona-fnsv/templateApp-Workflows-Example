@@ -2,22 +2,11 @@
 	<!-- User Fluid to go full width -->
 	<v-container fluid>
 		
-		<!-- Example -->
-		<v-row class="fill-height pt-16" >
-			<v-col cols="12" class="text-center text-h5">
-				<div>We don't do these things</div>
-				<div>because they are easy.</div>
-
-				<div class="mt-4">We do them because we</div>
-				<div>thought they would be easy.</div>
-			</v-col>
-		</v-row>
-
 	</v-container>
 </template>
 
 <script setup>
-	import { api } from '@/stores'
+	import { api, ui } from '@/stores'
 </script>
 
 <script>
@@ -25,8 +14,18 @@
 export default {
 data: () => ({}),
 
-mounted() {
+async mounted() {
 	api.fetchBuildings()
+	const confirmed = await ui.confirm({
+		title: 'Confirm',
+		body: 'We dont do these things\n because they are easy.\n\nWe do them because we\n thought they would be easy.',
+		type: 'Ok',  // 'YesNo' or 'Ok'
+	})
+	if (confirmed) {
+			console.log('Cliked OK or Yes');
+		} else {
+			console.log('Clicked No');
+		}
 },
 
 computed: {},

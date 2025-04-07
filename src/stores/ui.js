@@ -11,6 +11,13 @@ state: () => ({
     snackColor:     "warning",
     pageTitle:      "TemplateApp",  // Default page title, will be overridden by router beforeEnter in router/index.js (if applicable)
     loading:        false,          // Global loading indicator, under the main app bar (top of page) for async operations.
+
+    // Confirm Dialog Properties
+    showConfirmDialog:      false,
+    confirmDialogType:      'YesNo', // "YesNo" | "Ok"
+	confirmDialogTitle:     '',
+	confirmDialogBody:      '',
+	confirmDialogResolve:   null,
 }),
 
 getters: {
@@ -18,7 +25,24 @@ getters: {
 },
 
 actions: {
-    
+    async confirm({ title, body, type = 'YesNo' }) {
+		this.confirmDialogTitle = title
+		this.confirmDialogBody = body
+		this.confirmDialogType = type
+		this.showConfirmDialog = true
+
+		return new Promise((resolve) => {
+			this.confirmDialogResolve = resolve
+		})
+	},
+
+    resolveConfirm(result) {
+        this.showConfirmDialog = false
+        if (this.confirmDialogResolve) {
+            this.confirmDialogResolve(result)
+            this.confirmDialogResolve = null
+        }
+    },
 }
 
 })

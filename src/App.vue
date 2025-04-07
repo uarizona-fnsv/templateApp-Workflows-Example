@@ -54,6 +54,7 @@
 			<v-progress-linear color="blue-grey-lighten-1" height="5" indeterminate v-if="ui.loading"></v-progress-linear>      
 			<router-view />
 			<SnackMessageBar />	<!-- See SnackMessageBar.vue for implementation  -->
+			<ConfirmDialog />	<!-- See ConfirmDialog.vue for implementation  -->
 		</v-main>		
 
 	</v-app>
@@ -61,6 +62,7 @@
 
 <script>
 import SnackMessageBar from './components/SnackMessageBar.vue'
+import ConfirmDialog from './components/common/ConfirmDialog.vue'
 
 export default {
 name: 'App',
