@@ -98,7 +98,7 @@ methods: {
     border: 2px solid !important;
     border-radius: 0 !important;
     cursor: pointer !important;
-    background-color: #ffffff88;
+    background-color: #ffffff;
     transition: background-color 0.3s, color 0.3s;
 }
 
