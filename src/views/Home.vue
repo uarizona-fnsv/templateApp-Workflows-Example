@@ -18,14 +18,14 @@ async mounted() {
 	api.fetchBuildings()
 	const confirmed = await ui.confirm({
 		title: 'Confirm',
-		body: 'We dont do these things\n because they are easy.\n\nWe do them because we\n thought they would be easy.',
+		body: 'Everything is Fine',
 		type: 'Ok',  // 'YesNo' or 'Ok'
 	})
 	if (confirmed) {
-			console.log('Cliked OK or Yes');
-		} else {
-			console.log('Clicked No');
-		}
+		console.log('Clicked OK or Yes');
+	} else {
+		console.log('Clicked No');
+	}
 },
 
 computed: {},
