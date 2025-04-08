@@ -14,13 +14,12 @@ state: () => ({
 	
 	netid: 				null,
 	emplId: 			null,
+	isUser: 			false,
+	isAdmin: 			false,
 }),
 
 getters: {
-	// TODO: modify these to work with cerberus / token claims
-	isUser: 	(state) => { return state.roles?.includes("user") },
-	isAdmin: 	(state) => { return state.roles?.includes("admin") },
-	isSigma: 	(state) => { return state.roles?.includes("sigma") } // Tests access denied
+
 },
 
 actions: {
@@ -39,7 +38,7 @@ actions: {
 	// Token used for API authentication/permissions
 	getToken(payload) {
 		console.log("Get Token")
-		return fetch(api.commonApiUrl + '/getDoggoJwt/', {
+		return fetch(api.commonApiUrl + '/getBATSJwt/', {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
@@ -58,6 +57,60 @@ actions: {
 			router.push({ name: 'ServiceDown' })
 		})
 	},
+
+	parseJwt(token) {
+		try {
+			const base64Payload = token.split('.')[1]
+			const payload = atob(base64Payload)
+			return JSON.parse(payload)
+		} catch (e) {
+			console.error("Invalid JWT:", e)
+			return {}
+		}
+	},
+
+	parseClaimsFromToken() {
+		if (!api.token) return;
+	  
+		console.log("Parsing Claims from Token");
+		const claims = this.parseJwt(api.token);
+		console.log("Parsed Claims:", claims);
+	  
+		this.netId = claims.netid;
+		this.emplId = claims.emplid;
+		console.log("Store netId:", this.netId);
+		console.log("Store emplId:", this.emplId);
+	  
+		const appId = import.meta.env.VITE_APP_ID_PROD;
+		const roleClaim = `role:${appId}`;
+	  
+		// Check if the claim exists on the token.
+		if (claims.hasOwnProperty(roleClaim)) {
+		  let roleValue = claims[roleClaim];
+	  
+		  // Ensure the value is an array
+		  if (typeof roleValue === "string") {
+			roleValue = [roleValue];
+		  }
+	  
+		  // Iterate over role values and set properties.(ie. isUser, isAdmin)
+		  roleValue.forEach(val => {
+			// Dynamically create a flag name; for example, "user" becomes "isUser"
+			const propName = `is${val.charAt(0).toUpperCase() + val.slice(1)}`;
+	  
+			// Set the dynamic flag. Make sure that the flag is declared in the store state.
+			this[propName] = true;
+		  });
+		} else {
+		  console.warn(`Claim ${roleClaim} not found in token`);
+		}
+	  
+		console.log("isUser:", this.isUser);
+		console.log("isAdmin:", this.isAdmin);
+	  }
+	  
+	  
+	  
 
 	
 },

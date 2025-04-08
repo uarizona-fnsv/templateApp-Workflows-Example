@@ -24,8 +24,12 @@ getters: {
 actions: {
     // This is executed immediately upon login, before going to route
 	async initialize() {
+        console.log("Initializing App")
 		if (!this.initialized) {
-			this.initialized = true			
+			this.initialized = true	
+            
+            // Setup Roles into State
+            user.parseClaimsFromToken()
 					
 			// Parallel fetching, faster than a chain of awaits.  Will wait for them all to finish.
 			ui.loading = true	
