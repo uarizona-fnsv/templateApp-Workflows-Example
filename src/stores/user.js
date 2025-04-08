@@ -69,45 +69,40 @@ actions: {
 		}
 	},
 
+	// This function is called when the user logs in and the token is set
+	// It parses the token and sets the user roles in the store
+	// It also sets the netid and emplId in the store
+	// it will take claims such as "role:templateApp:user" and set isUser to true
 	parseClaimsFromToken() {
 		if (!api.token) return;
-	  
-		console.log("Parsing Claims from Token");
+	
 		const claims = this.parseJwt(api.token);
 		console.log("Parsed Claims:", claims);
-	  
+	
+		// Store the netid and emplId in the store
 		this.netId = claims.netid;
 		this.emplId = claims.emplid;
-		console.log("Store netId:", this.netId);
-		console.log("Store emplId:", this.emplId);
-	  
+	
 		const appId = import.meta.env.VITE_APP_ID_PROD;
-		const roleClaim = `role:${appId}`;
-	  
-		// Check if the claim exists on the token.
-		if (claims.hasOwnProperty(roleClaim)) {
-		  let roleValue = claims[roleClaim];
-	  
-		  // Ensure the value is an array
-		  if (typeof roleValue === "string") {
-			roleValue = [roleValue];
-		  }
-	  
-		  // Iterate over role values and set properties.(ie. isUser, isAdmin)
-		  roleValue.forEach(val => {
-			// Dynamically create a flag name; for example, "user" becomes "isUser"
-			const propName = `is${val.charAt(0).toUpperCase() + val.slice(1)}`;
-	  
-			// Set the dynamic flag. Make sure that the flag is declared in the store state.
-			this[propName] = true;
-		  });
-		} else {
-		  console.warn(`Claim ${roleClaim} not found in token`);
-		}
-	  
+		const rolePrefix = `role:${appId}`; // To check for roles related to this app
+	
+		// Iterate through claims and dynamically set properties for each role:<appId> claim
+		Object.keys(claims).forEach(roleClaim => {
+			if (roleClaim.startsWith(rolePrefix)) {
+				const roleValue = claims[roleClaim]; // The value of the claim will be a single string (like "user")
+				
+				// Dynamically create the property name based on the role value (e.g., "user" -> "isUser")
+				const propertyName = `is${roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}`;
+				this[propertyName] = true;
+			}
+		});
+	
 		console.log("isUser:", this.isUser);
 		console.log("isAdmin:", this.isAdmin);
-	  }
+	}
+	
+	
+	
 	  
 	  
 	  
