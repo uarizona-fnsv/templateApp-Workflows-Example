@@ -5,6 +5,8 @@ import ServiceDown from '../views/ServiceDown.vue'
 import NotAuthorized from '../views/NotAuthorized.vue'
 import { user, ui, api, app } from '@/stores'
 
+const appName = import.meta.env.VITE_APP_NAME 
+
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),  // Use the base URL from vite.config.js for deployment (if set)
 	routes: [
@@ -71,7 +73,7 @@ router.beforeEach(async (to, from) => {
 		} else {
 			
 			// Having grabbed a ticket from Webauth.  Use it to get token, set cookie, set state token.
-			let token = await user.getToken({ticket, location, serviceURL})
+			let token = await user.getToken({ticket, location, serviceURL, appName})
 			await user.setToken(token.token)
 			await user.setCookie(token.token) // Save the token in a cookie for future requests
 		
