@@ -7,9 +7,9 @@
     "_notes": "deploy scripts need to be modified before using",
     "serve": "vite preview",
     "build": "vite build",
-    "deploy:dev": "robocopy dist \"\\\\bats-betawebapp3.bluecat.arizona.edu\\inetpub\\beta.apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
+    "deploy:beta": "robocopy dist \"\\\\bats-betawebapp3.bluecat.arizona.edu\\inetpub\\beta.apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
     "deploy:prod": "robocopy dist \"\\\\bats-webapps3.bluecat.arizona.edu\\inetpub\\apps.ba.arizona.edu\\TemplateApp\" /E /NFL /NDL /NJH /NJS /NC /NS",
-    "build:deploy:dev": "npm run build && npm run deploy:dev",
+    "build:deploy:beta": "npm run build && npm run deploy:beta",
     "build:deploy:prod": "npm run build && npm run deploy:prod",
     "dev": "vite",
     "preview": "vite preview"

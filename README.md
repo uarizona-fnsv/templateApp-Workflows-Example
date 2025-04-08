@@ -95,10 +95,10 @@ Below are the scripts available for this project:
 - **`npm run build`**
     - Builds the application for production. The output files will be located in the `dist` folder and optimized for performance.
 
-- **`npm deploy:dev || deploy:prod`**
+- **`npm deploy:beta || deploy:prod`**
     - Robocopys the build files to the destination.  This requires editing to remove the underscore and replace 'templateapp' with correct path.
  
-- **`npm build:deploy:dev || build:deploy:prod`**
+- **`npm build:deploy:beta || build:deploy:prod`**
     - Combines the build and deploy in one step.  This requires editing to remove the underscore and replace 'templateapp' with correct path.
      
 ## Roles and Permissions
