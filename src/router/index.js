@@ -39,11 +39,16 @@ const router = createRouter({
 // EXECUTED BEFORE ROUTING
 router.beforeEach(async (to, from) => {
 
-	// Routes that skip authorization
+	// List of routes that skip authorization, no token or roles required
 	const noAuthRoutes = ['NotAuthorized'];
 
-	// Routes that will require admin role
-	const adminUserRoutes = ['AdminExample'];
+	// List of routes that require user role
+	//const userRoleRequiredRoutes = ['Home', 'About', '', ''];
+	const userRoleRequiredRoutes = [];
+
+	 
+	/// List of routes that require admin role
+	const adminRoleRequiredRoutes = ['AdminExample'];
 	
 	// Skip Authentication for noAuthRoutes
 	if (noAuthRoutes.includes(to.name)) {
@@ -83,21 +88,32 @@ router.beforeEach(async (to, from) => {
 	}
 
 	// Fetch any data that is needed before going on (superUser, etc)
-	await app.initialize()  
-
-	// Deny non-users.  Some more open apps only a token is required.  For other apps, a user role might be required.
-	// This whole section can be commented out if User/Admin roles not used.
-	if (!api.token) {
-	//if (!user.isUser) {
-		console.log("Denied")
-		return '/NotAuthorized'
-	} else { console.log("User allowed to the requested route")}
-
-	// Some routes require admin role
-	if (adminUserRoutes.includes(to.name) && !user.isAdmin) {
+	await app.initialize() 
+	
+	// Some routes require user role
+	// If this route is in the adminUserRoute List, and this use is not an admin, deny access.
+	if (userRoleRequiredRoutes.includes(to.name) && !user.isUser) {
 		console.log("Denied")
 		return '/NotAuthorized'
 	}
+
+	// Some routes require admin role
+	// If this route is in the adminUserRoute List, and this use is not an admin, deny access.
+	if (adminRoleRequiredRoutes.includes(to.name) && !user.isAdmin) {
+		console.log("Denied")
+		return '/NotAuthorized'
+	}
+
+	// Deny users without a token.  
+	// The effect of this is anyone with a netId is allowed to routes that are not protected by roles.
+	if (!api.token) {
+		console.log("Denied")
+		return '/NotAuthorized'
+	} else { 
+		console.log("User allowed to the requested route")
+	}
+
+	
 
 	// Proceed to the route
 	return

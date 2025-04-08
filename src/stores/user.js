@@ -69,37 +69,39 @@ actions: {
 		}
 	},
 
-	// This function is called when the user logs in and the token is set
-	// It parses the token and sets the user roles in the store
-	// It also sets the netid and emplId in the store
-	// it will take claims such as "role:templateApp:user" and set isUser to true
 	parseClaimsFromToken() {
 		if (!api.token) return;
 	
 		const claims = this.parseJwt(api.token);
 		console.log("Parsed Claims:", claims);
 	
-		// Store the netid and emplId in the store
 		this.netId = claims.netid;
 		this.emplId = claims.emplid;
+		
+		console.log("Parsing Roles for", import.meta.env.VITE_APP_NAME);
+		const appId = import.meta.env.VITE_APP_NAME;
+		const rolePrefix = `role:${appId}`;
 	
-		const appId = import.meta.env.VITE_APP_ID_PROD;
-		const rolePrefix = `role:${appId}`; // To check for roles related to this app
+		Object.keys(claims).forEach(claimKey => {
+			if (claimKey.startsWith(rolePrefix)) {
+				let roles = claims[claimKey];
 	
-		// Iterate through claims and dynamically set properties for each role:<appId> claim
-		Object.keys(claims).forEach(roleClaim => {
-			if (roleClaim.startsWith(rolePrefix)) {
-				const roleValue = claims[roleClaim]; // The value of the claim will be a single string (like "user")
-				
-				// Dynamically create the property name based on the role value (e.g., "user" -> "isUser")
-				const propertyName = `is${roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}`;
-				this[propertyName] = true;
+				// Normalize to array
+				if (!Array.isArray(roles)) {
+					roles = [roles];
+				}
+	
+				roles.forEach(role => {
+					const propertyName = `is${role.charAt(0).toUpperCase() + role.slice(1)}`;
+					this[propertyName] = true;
+				});
 			}
 		});
 	
 		console.log("isUser:", this.isUser);
 		console.log("isAdmin:", this.isAdmin);
 	}
+	
 	
 	
 	
