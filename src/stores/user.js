@@ -4,7 +4,7 @@
 // Be careful not to import app.js here or create other circular references.
 
 import { defineStore } from 'pinia'
-import { api } from '../stores' // Adding more stores here can cause circular references.
+import { api, ui } from '../stores' // Adding more stores here can cause circular references.
 import jscookie from 'js-cookie'
 import router from '../router'
 export const API_JWT_AUTH = 'templateApp_jwt_auth'
@@ -37,6 +37,7 @@ actions: {
 
 	// Token used for API authentication/permissions
 	getToken(payload) {
+		ui.loading = true
 		console.log("Get Token")
 		return fetch(api.commonApiUrl + '/getBATSJwt/', {
 			headers: {
@@ -52,6 +53,7 @@ actions: {
 				router.push({ name: 'ServiceDown' }) 
 			}})
 		.then((data) => {
+			this.loading = false
 			return data })
 		.catch((error) => {
 			router.push({ name: 'ServiceDown' })

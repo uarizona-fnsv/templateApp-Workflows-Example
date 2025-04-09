@@ -1,6 +1,6 @@
 // ui.js store
 // Use this store for UI state management.  "showUploadDialog", loading indicators, etc
-// This store should not contain any business logic or API calls.
+// This store should not contain any business logic or API calls. 
 
 import { defineStore } from 'pinia'
 
@@ -10,7 +10,7 @@ state: () => ({
     snackText:      null,
     snackColor:     "warning",
     pageTitle:      "TemplateApp",  // Default page title, will be overridden by router beforeEnter in router/index.js (if applicable)
-    loading:        false,          // Global loading indicator, under the main app bar (top of page) for async operations.
+    loading:        true,          // Global loading indicator, under the main app bar (top of page) for async operations.
 
     // Confirm Dialog Properties
     showConfirmDialog:      false,
