@@ -60,13 +60,29 @@ getters: {
 },
 
 actions: {   
+    // All Fetches go here.  Prefacing the actionName with "fetch" is recommended for clarity.
+
     // Security Test
+    // A good basic health check to keep in place and implement
+    // But it must be added to each backend API to function
+    // Sample .NET Return from decoding the claims | return Ok($"Hello {firstName} {lastName} - {netid} - {emplid}.");
     fetchSecurityTest() {
         console.log("Action: Check Secure Endpoint")
         return fetch(this.apiUrl + '/secure', { headers: this.headers })
           .then(response => response.json())
           .then(data => console.log("Secure Endpoint:", data))
-      },
+    },
+
+    fetchRequestAccess() {
+        console.log("Action: Request App Permission")
+        return fetch(this.commonApiUrl + '/requestAccess', {
+            method: 'POST',
+            headers: this.headers,
+            body: JSON.stringify({ appName: import.meta.env.VITE_APP_NAME }),
+          })
+          .then(response => response.json())
+          .then(data => console.log("Request Sent"))
+    },
 
     // EXAMPLE FETCH - Buildings from Space Database
     fetchBuildings () {
