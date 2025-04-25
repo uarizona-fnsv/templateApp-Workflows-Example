@@ -25,7 +25,7 @@ state: () => ({
 }),
 
 getters: {
-    // Allows convenient switching of API see 'useLocalAPI' above
+    // Allows convenient switching of APIs between local, prod, beta
     apiURLNoLocal() {		
         console.log("useBetaAPI", this.useBetaAPI)
         return this.useBetaAPI ? this.betaApiUrl : this.prodApiUrl;
