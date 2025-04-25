@@ -31,12 +31,16 @@ actions: {
             // Setup Roles into State
             user.parseClaimsFromToken()
 					
-			// Parallel fetching, faster than a chain of awaits.  Will wait for them all to finish.
-			ui.loading = true	
+			// Fetch Data
+            ui.loading = true	
 			await Promise.all([ 
-				//this.fetchSecurityTest(),	// Example - Security Test (ensure token is valid, show some claims)
+                // Initialization Fetchs GO HERE
+				this.fetchSecurityTest(),	// Recommended to keep in place for security testing and health ping
 			])
-			ui.loading = false			
+			ui.loading = false		
+            
+            // Other Initialization Logic
+            console.log("App Initialized")
 		}
 	},
     
