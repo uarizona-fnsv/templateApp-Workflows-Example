@@ -20,7 +20,7 @@
 								<v-list-item class="listItemAdjust pb-0 text-h5 font-weight-light"
 									style="line-height: 1.2em;">University
 									Information Technlogy Services (UITS)</v-list-item>
-								<div class="px-4 font-weight-light" style="position: relative; top: -5px;">Business Operations</div>
+								<div class="px-4 font-weight-light" style="position: relative; top: -5px;">Administrative Operations</div>
 							</v-col>
 						</v-row>
 
