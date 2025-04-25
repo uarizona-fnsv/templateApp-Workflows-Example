@@ -1,3 +1,6 @@
+// The individual stores are designed to not create circular references
+// You'll know if you have circular references because hot reload will not work
+
 import { createPinia } from 'pinia'
 const pinia = createPinia()
 

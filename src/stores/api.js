@@ -2,7 +2,7 @@
 // This store is used for external API definitions
 // Contains almost entirely boilerplate code for API endpoints, headers, and URL management.
 // They might set a state variable for convenience, but should not obscure any important logic. 
-// Keep logic in app.js store.
+// Put logic in app.js store, not here.
 
 import { defineStore } from 'pinia'
 import jscookie from 'js-cookie'
@@ -13,7 +13,7 @@ state: () => ({
     token: 			jscookie.get(API_JWT_AUTH),    
    
     useLocalAPI:    false,
-    localApiUrl:    "http://localhost:3000/api",                        // Local API for development/testing (if using a local backend with this)
+    localApiUrl:    "http://localhost:3000/api",                        
     commonApiUrl:   "https://api.ba.arizona.edu/common",                // Common API for shared functionality (like user profile, etc)    
     prodApiUrl:     "https://api.ba.arizona.edu/templateApp/api",       // Production API for this application (templateApp)
     betaApiUrl:     "https://beta.api.ba.arizona.edu/templateApp/api",  // Beta API for this application (templateApp)
@@ -25,17 +25,30 @@ state: () => ({
 }),
 
 getters: {
-    // Allows convenient switching of API using combinations of 'useLocalAPI' and VITE_APP_DEPLOYMENT
-    apiUrl() {
+    // Allows convenient switching of API see 'useLocalAPI' above
+    apiURLNoLocal() {		
+        console.log("useBetaAPI", this.useBetaAPI)
+        return this.useBetaAPI ? this.betaApiUrl : this.prodApiUrl;
+    },
+    
+    apiURL() {			
         if (this.useLocalAPI) return this.localApiUrl;
-        return import.meta.env.VITE_APP_DEPLOYMENT === 'beta' ? this.betaApiUrl : this.prodApiUrl;
-      },
+        return this.useBetaAPI ? this.betaApiUrl : this.prodApiUrl;
+    },    
+    
+    // This will resolve based on the app deployment env variable
+    // Unless overridden by the forceProdAPI variable
+    useBetaAPI() {
+        if (import.meta.env.VITE_FORCE_PRODAPI == "true") return false
+        if (import.meta.env.VITE_FORCE_BETAAPI == "true") return true
+        return window?.location?.hostname.includes('beta') || 
+        window?.location?.hostname === 'localhost' ? true : false
+    },
 
     // Default header
     headers: (state) => {
         return {
             'Authorization':    `Bearer ${state.token}`,
-            'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
         }
     },
@@ -43,41 +56,31 @@ getters: {
     commonApiHeaders: (state) => {
         return {
             'Authorization':    state.token,         // Common doesnt' take bearer
-            'database':         state.getDatabase,  // This can be implemented on the backned to switch databases based on the value of this header (dev vs not_dev)
             'content-type':     'application/json',
         }
-    },
-
-    getDatabase: (state) => {
-        return state.useDevDatabase == true ? 'dev' : 'not_dev'
-    },
-
-    appId: (state) => {
-        return import.meta.env.VITE_APP_DEPLOYMENT === 'beta' 
-          ? import.meta.env.VITE_APP_ID_BETA 
-          : import.meta.env.VITE_APP_ID_PROD
-    },
+    },    
 },
 
 actions: {   
     // All Fetches go here.  Prefacing the actionName with "fetch" is recommended for clarity.
 
     // Security Test
-    // A good basic health check to keep in place and implement
     // But it must be added to each backend API to function
     // Sample .NET Return from decoding the claims | return Ok($"Hello {firstName} {lastName} - {netid} - {emplid}.");
     fetchSecurityTest() {
         console.log("Action: Check Secure Endpoint")
-        return fetch(this.apiUrl + '/secure', { headers: this.headers })
-          .then(response => response.json())
-          .then(data => console.log("Secure Endpoint:", data))
+        return fetch(this.apiUrl + '/secure', 
+            { headers: { ...this.headers, 'content-type': 'application/text' }
+        })
+        .then(response => response.text())
+        .then(data => console.log("Secure Endpoint:", data))
     },
 
     fetchRequestAccess() {
         console.log("Action: Request App Permission")
         return fetch(this.commonApiUrl + '/requestAccess', {
             method: 'POST',
-            headers: this.headers,
+            headers: { ...this.headers, 'content-type': 'application/text' },
             body: JSON.stringify({ appName: import.meta.env.VITE_APP_NAME }),
           })
           .then(response => response.json())

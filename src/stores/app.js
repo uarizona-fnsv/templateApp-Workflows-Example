@@ -30,12 +30,15 @@ actions: {
             
             // Setup Roles into State
             user.parseClaimsFromToken()
+
+            // Show in Console what API is being used
+            console.log("useBetaApi ", api.useBetaAPI)
 					
 			// Fetch Data
             ui.loading = true	
 			await Promise.all([ 
                 // Initialization Fetchs GO HERE
-				this.fetchSecurityTest(),	// Recommended to keep in place for security testing and health ping
+				//api.fetchSecurityTest(),	// Recommended to keep in place for security testing and health ping
 			])
 			ui.loading = false		
             

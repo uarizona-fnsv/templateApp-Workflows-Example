@@ -19,7 +19,11 @@ state: () => ({
 }),
 
 getters: {
-
+	appName: () => {
+        return api.useBetaAPI
+        ? import.meta.env.VITE_APP_NAME_BETA
+        : import.meta.env.VITE_APP_NAME_PROD
+    },
 },
 
 actions: {
@@ -80,9 +84,8 @@ actions: {
 		this.netId = claims.netid;
 		this.emplId = claims.emplid;
 		
-		console.log("Parsing Roles for", import.meta.env.VITE_APP_NAME);
-		const appId = import.meta.env.VITE_APP_NAME;
-		const rolePrefix = `role:${appId}`;
+		console.log("Parsing Roles for", this.appName);
+		const rolePrefix = `role:${this.appName}`;
 	
 		Object.keys(claims).forEach(claimKey => {
 			if (claimKey.startsWith(rolePrefix)) {
