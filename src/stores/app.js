@@ -26,7 +26,7 @@ actions: {
 	async initialize() {
         console.log("Initializing App")
 		if (!this.initialized) {
-			this.initialized = true	
+			
             
             // Setup Roles into State
             user.parseClaimsFromToken()
@@ -44,6 +44,7 @@ actions: {
             
             // Other Initialization Logic
             console.log("App Initialized")
+            this.initialized = true	
 		}
 	},
     
