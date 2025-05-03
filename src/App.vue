@@ -103,21 +103,25 @@ methods: {
 .uabutton.red {
     border-color: #8b0015;
     color: #8b0015 !important;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add border-color to transition */
 }
 
 .uabutton.red:hover {
     background-color: #8b0015;
     color: #fff !important;
+    border-color: #8b0015 !important; /* Ensure the border stays red */
 }
 
 .uabutton.blue {
     border-color: #0C234B;
     color: #0C234B !important;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Add border-color to transition */
 }
 
 .uabutton.blue:hover {
     background-color: #0C234B;
     color: #fff !important;
+    border-color: #0C234B !important; /* Ensure the border stays blue */
 }
 
 .arizona-line-logo {
