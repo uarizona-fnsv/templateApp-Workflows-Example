@@ -31,10 +31,10 @@ getters: {
         return this.useBetaAPI ? this.betaApiUrl : this.prodApiUrl;
     },
     
-    apiURL() {			
-        if (this.useLocalAPI) return this.localApiUrl;
+    apiUrl() {			
+        if (this.useLocalAPI && window?.location?.hostname === 'localhost') return this.localApiUrl;
         return this.useBetaAPI ? this.betaApiUrl : this.prodApiUrl;
-    },    
+    },   
     
     // This will resolve based on the app deployment env variable
     // Unless overridden by the forceProdAPI variable
