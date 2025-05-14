@@ -1,9 +1,6 @@
-<!-- 
-// This component is designed to be used as-is, should not need to modify this.  
-// Refer to ExampleApp and many other apps to see how it is implemented
--->
-
 <template >
+	<!-- prop 'name' set prevents browser prefill -->
+	<!-- :search-input.sync="search" -->
 	<v-autocomplete 
 		:model-value="dataProp"	
 		v-model:search="search"	
@@ -48,7 +45,7 @@
 
 <script setup>
 import _ from 'lodash'
-import { user } from '@/stores'
+import { api } from '@/stores'
 </script>
 
 
@@ -69,7 +66,7 @@ watch: {
     if (
       val &&
       val !== this.select &&
-      ((isNaN(val) && val.length > 3) || (!isNaN(val) && (val.length === 8 || val.length === 16)))
+      val.length > 3
     ) {
       this.querySelections(val);
     }
@@ -96,12 +93,12 @@ methods: {
 	querySelections: _.debounce(function (v) { 
 		this.loading = true			
 		let payload = { 'search': v }
-		fetch("https://api.ba.arizona.edu/common/employeeSearch",			
+		fetch("https://api.ba.arizona.edu/common/personSearch",			
 			{
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json',
-					'Authorization': user.token
+					'Authorization': 'Bearer ' + api.token
 				},
 				method: "POST",
                  body: JSON.stringify(payload)
