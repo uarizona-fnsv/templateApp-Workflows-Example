@@ -87,7 +87,7 @@ router.beforeEach(async (to, from) => {
 	// Fetch any data that is needed before going on (superUser, etc)
 	await app.initialize() 
 
-	// Generalized route requirements check using meta
+	// Some routes require a user role, specified in the route meta.
 	const required = to.meta?.required
 	if (required && Array.isArray(required)) {
 		for (const requirement of required) {
