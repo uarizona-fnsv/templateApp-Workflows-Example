@@ -88,9 +88,8 @@ router.beforeEach(async (to, from) => {
 	await app.initialize() 
 
 	// Some routes require a user role, specified in the route meta.
-	const required = to.meta?.required
-	if (required && Array.isArray(required)) {
-		for (const requirement of required) {
+	if (to.meta?.required) {
+		for (const requirement of to.meta.required) {
 			if (!user[requirement]) {
 				console.log(`Denied - Missing requirement: ${requirement}`);
 				return '/NotAuthorized';
