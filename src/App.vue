@@ -51,7 +51,7 @@
 		<!-- MAIN LAYOUT INCLUDING ROUTER-VIEW.  ALL ROUTES APPEAR THERE -->
 		<v-main>
 			<v-divider></v-divider>	
-			<v-progress-linear color="blue-grey-lighten-1" height="5" indeterminate v-if="ui.loading"></v-progress-linear>      
+			<v-progress-linear indeterminate color="UAAzurite" height="5" :style="{ opacity: ui.loading ? 1 : 0 }" />    
 			<router-view />
 			<SnackMessageBar />	<!-- See SnackMessageBar.vue for implementation  -->
 			<ConfirmDialog />	<!-- See ConfirmDialog.vue for implementation  -->
