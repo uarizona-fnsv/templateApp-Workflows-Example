@@ -13,6 +13,7 @@ const router = createRouter({
 			name: 'Home',
 			component: Home,
 			beforeEnter() { ui.pageTitle="TemplateApp" },
+			//meta: { required: ['isUser'] }, // Example usage
 		},
 		{
 			path: '/About',
@@ -31,26 +32,22 @@ const router = createRouter({
 			component: NotAuthorized,
 			beforeEnter() { ui.pageTitle="TemplateApp - Not Authorized" },
 		},
+		// Example of a protected route:
+		// {
+		// 	path: '/AdminExample',
+		// 	name: 'AdminExample',
+		// 	component: AdminExample,
+		// 	meta: { required: ['isAdmin'] }
+		// },
 	]
 })
+
+const noAuthRoutes = ['NotAuthorized', 'ServiceDown'];
 
 // EXECUTED BEFORE ROUTING
 router.beforeEach(async (to, from) => {
 
-	// List of routes that skip authorization, no token or roles required
-	const noAuthRoutes = ['NotAuthorized'];
-
-	// List of routes that require user role
-	//const userRoleRequiredRoutes = ['Home', 'About', '', ''];
-	const userRoleRequiredRoutes = [];
-
-	// List of routes that require ferpa Certification
-	const ferpaRequiredRoutes = [];
-	 
-	// List of routes that require admin role
-	const adminRoleRequiredRoutes = ['AdminExample'];
-	
-	// Skip Authentication for noAuthRoutes
+	// Do not Authenticate for noAuthRoutes
 	if (noAuthRoutes.includes(to.name)) {
 		return
 	}
@@ -90,25 +87,15 @@ router.beforeEach(async (to, from) => {
 	// Fetch any data that is needed before going on (superUser, etc)
 	await app.initialize() 
 
-	// Some routes require ferpa role
-	// If this route is in the ferpa List, and this use is not an admin, deny access.
-	if (ferpaRequiredRoutes.includes(to.name) && !user.isFerpaCertified) {
-		console.log("Denied - Not FERPA Certified")
-		return '/NotAuthorized'
-	}
-	
-	// Some routes require user role
-	// If this route is in the adminUserRoute List, and this use is not an admin, deny access.
-	if (userRoleRequiredRoutes.includes(to.name) && !user.isUser) {
-		console.log("Denied")
-		return '/NotAuthorized'
-	}
-
-	// Some routes require admin role
-	// If this route is in the adminUserRoute List, and this use is not an admin, deny access.
-	if (adminRoleRequiredRoutes.includes(to.name) && !user.isAdmin) {
-		console.log("Denied")
-		return '/NotAuthorized'
+	// Generalized route requirements check using meta
+	const required = to.meta?.required
+	if (required && Array.isArray(required)) {
+		for (const requirement of required) {
+			if (!user[requirement]) {
+				console.log(`Denied - Missing requirement: ${requirement}`);
+				return '/NotAuthorized';
+			}
+		}
 	}
 
 	// Deny users without a token.  
@@ -119,8 +106,6 @@ router.beforeEach(async (to, from) => {
 	} else { 
 		console.log("User allowed to the requested route")
 	}
-
-	
 
 	// Proceed to the route
 	return
