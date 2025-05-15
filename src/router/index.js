@@ -44,8 +44,10 @@ router.beforeEach(async (to, from) => {
 	//const userRoleRequiredRoutes = ['Home', 'About', '', ''];
 	const userRoleRequiredRoutes = [];
 
+	// List of routes that require ferpa Certification
+	const ferpaRequiredRoutes = [];
 	 
-	/// List of routes that require admin role
+	// List of routes that require admin role
 	const adminRoleRequiredRoutes = ['AdminExample'];
 	
 	// Skip Authentication for noAuthRoutes
@@ -87,6 +89,13 @@ router.beforeEach(async (to, from) => {
 
 	// Fetch any data that is needed before going on (superUser, etc)
 	await app.initialize() 
+
+	// Some routes require ferpa role
+	// If this route is in the ferpa List, and this use is not an admin, deny access.
+	if (ferpaRequiredRoutes.includes(to.name) && !user.isFerpaCertified) {
+		console.log("Denied - Not FERPA Certified")
+		return '/NotAuthorized'
+	}
 	
 	// Some routes require user role
 	// If this route is in the adminUserRoute List, and this use is not an admin, deny access.

@@ -12,10 +12,13 @@ export const API_JWT_AUTH = 'templateApp_jwt_auth'
 export const useUser = defineStore('userStore', {
 state: () => ({
 	
-	netid: 				null,
-	emplId: 			null,
-	isUser: 			false,
-	isAdmin: 			false,
+	netid: 						null,
+	emplId: 					null,
+	isUser: 					false,
+	isAdmin: 					false,
+	isFerpaCertified:     		false,
+	isHipaaCertified:     		false,
+	isInfosecawareCertified: 	false,
 }),
 
 getters: {
@@ -81,8 +84,11 @@ actions: {
 		const claims = this.parseJwt(api.token);
 		console.log("Parsed Claims:", claims);
 	
-		this.netId = claims.netid;
-		this.emplId = claims.emplid;
+		this.netId = 					claims.netid;
+		this.emplId = 					claims.emplid;
+		this.isFerpaCertified = 		claims.ferpaCertified;
+		this.isHipaaCertified = 		claims.hipaaCertified;
+		this.isInfosecawareCertified = 	claims.infosecawareCertified;
 		
 		console.log("Parsing Roles for", this.appName);
 		const rolePrefix = `role:${this.appName}`;
@@ -103,8 +109,11 @@ actions: {
 			}
 		});
 	
-		console.log("isUser:", this.isUser);
-		console.log("isAdmin:", this.isAdmin);
+		console.log("isUser:", 					this.isUser);
+		console.log("isAdmin:", 				this.isAdmin);
+		console.log("isFerpaCertified:", 		this.isFerpaCertified);
+		console.log("isHipaaCertified:", 		this.isHipaaCertified);
+		console.log("isInfosecawareCertified:", this.isInfosecawareCertified);
 	}
 	
 	
