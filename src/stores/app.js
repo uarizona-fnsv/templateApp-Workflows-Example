@@ -24,9 +24,9 @@ getters: {
 actions: {
     // This is executed immediately upon login, before going to route
 	async initialize() {
-        console.log("Initializing App")
+        
 		if (!this.initialized) {
-			
+			console.log("Initializing App")
             
             // Setup Roles into State
             user.parseClaimsFromToken()
