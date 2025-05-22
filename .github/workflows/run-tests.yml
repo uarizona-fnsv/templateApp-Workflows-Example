@@ -30,7 +30,7 @@ jobs:
       - name: Start dev server in the background
         run: |
           echo "Starting dev server..."
-          npm run dev &
+          start /B npm run dev > dev-server.log 2>&1
           echo $! > dev-server.pid
 
       - name: Wait for dev server to be ready
