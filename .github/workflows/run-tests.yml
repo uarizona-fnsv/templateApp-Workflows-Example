@@ -9,7 +9,8 @@ on:
       - develop
 
 jobs:
-  Build Install and Test App:
+  execute-tests-of-run-dev-server:
+    name: Execute Tests of Run Dev Server
     runs-on: self-hosted
 
     steps:
@@ -35,7 +36,7 @@ jobs:
       - name: Wait for dev server to be ready
         run: |
           echo "Waiting for dev server to be ready..."
-          npx wait-on http://localhost:3000 # Replace with your dev server URL
+          npx wait-on http://localhost:8080 
 
       - name: Run tests
         run: |
