@@ -1,7 +1,32 @@
 name: Execute Tests on Pull Request
 
+run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
+
 on:
   pull_request:
     branches:
       - main
       - develop
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test
