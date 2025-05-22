@@ -31,7 +31,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Starting dev server..."
-          Start-Process -FilePath "npm" -ArgumentList "run dev" -NoNewWindow -RedirectStandardOutput "dev-server.log" -RedirectStandardError "dev-server.log" -PassThru | ForEach-Object { $_.Id } > dev-server.pid
+          Start-Process -FilePath "npm" -ArgumentList "run dev" -NoNewWindow -RedirectStandardOutput "dev-server.log" -RedirectStandardError "dev-server-error.log" -PassThru | ForEach-Object { $_.Id } > dev-server.pid
 
       - name: Wait for dev server to be ready
         shell: pwsh
