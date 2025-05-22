@@ -146,4 +146,4 @@ Due to the environment, the following must be true for the self-hosted runners t
 
 ### Potential ideas for improvement
 
-* Could we potentially find a way to have infrastructure allow a shared login for this and let a given host machine serve as one singular runner point, so we can eliminate self-constructed environment needs here?
+* Could we potentially find a way to have infrastructure?? allow a shared login for this and let a given host machine serve as one singular runner point, so we can eliminate self-constructed environment needs here?
