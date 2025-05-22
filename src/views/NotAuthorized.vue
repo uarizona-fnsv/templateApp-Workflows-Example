@@ -31,8 +31,15 @@
 				<v-card-text>
 					<v-row justify="center">
 						<v-col align="center">
-							<v-btn @click="api.fetchRequestAccess" class="uabutton red">
-								Request Access
+							<v-btn @click="requestAccess" class="uabutton red" :disabled="loading">
+								<span v-if="!loading">Request Access</span>
+								<v-progress-circular
+									v-if="loading"
+									:indeterminate="loading"
+									color="white"
+									size="24"
+									class="ml-2"
+								/>
 							</v-btn>
 						</v-col>
 					</v-row>
@@ -60,13 +67,25 @@ import { ui, api, user } from '@/stores'
 
 <script>
 export default {
-	data: () => ({}),
+	data: () => ({
+		loading: false,
+	}),
 	mounted() { ui.loading = false },
-	
 	methods: {
 		logout() {
 			user.setToken()
 			this.goHome()
+		},
+		async requestAccess() {
+			this.loading = true
+			await api.fetchRequestAccess({ 'appName': user.appName })
+			this.loading = false
+			const confirmed = await ui.confirm({
+				title: 'Access Request Sent',
+				body: 'Your request for access has been sent.\n You will be notified by email when it is approved.',
+				type: 'Ok',  // 'YesNo' or 'Ok'
+			})
+			if (confirmed) { console.log('Clicked OK or Yes');} 			
 		},
 		goHome() {
 			this.$router.push({ name: "Home" })

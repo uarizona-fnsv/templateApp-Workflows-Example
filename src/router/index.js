@@ -13,7 +13,7 @@ const router = createRouter({
 			name: 'Home',
 			component: Home,
 			beforeEnter() { ui.pageTitle="TemplateApp" },
-			//meta: { required: ['isUser'] }, // Example usage
+			meta: { required: ['isUser'] }, // Example usage
 		},
 		{
 			path: '/About',
