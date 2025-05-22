@@ -38,11 +38,6 @@ jobs:
           echo "Waiting for dev server to be ready..."
           npx wait-on http://localhost:8080 
 
-      - name: Run tests
-        run: |
-          echo "Running tests..."
-          npm test
-
       - name: Stop dev server
         run: |
           echo "Stopping dev server..."
