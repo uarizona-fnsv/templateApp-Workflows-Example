@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  test:
+  Build Install and Test App:
     runs-on: self-hosted
 
     steps:
@@ -26,7 +26,23 @@ jobs:
           echo "Installing dependencies..."
           npm install
 
-      - name: Sanity check running dev.
+      - name: Start dev server in the background
+        run: |
+          echo "Starting dev server..."
+          npm run dev &
+          echo $! > dev-server.pid
+
+      - name: Wait for dev server to be ready
+        run: |
+          echo "Waiting for dev server to be ready..."
+          npx wait-on http://localhost:3000 # Replace with your dev server URL
+
+      - name: Run tests
         run: |
           echo "Running tests..."
-          npm run dev
+          npm test
+
+      - name: Stop dev server
+        run: |
+          echo "Stopping dev server..."
+          kill $(cat dev-server.pid)

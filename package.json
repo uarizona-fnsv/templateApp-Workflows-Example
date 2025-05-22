@@ -12,7 +12,8 @@
     "build:deploy:beta": "npm run build && npm run deploy:beta",
     "build:deploy:prod": "npm run build && npm run deploy:prod",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.2.2",
-    "vite-plugin-vuetify": "^2.1.0"
+    "vite-plugin-vuetify": "^2.1.0",
+    "wait-on": "^8.0.3"
   }
 }
