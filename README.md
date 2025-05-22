@@ -121,3 +121,29 @@ Below are the scripts available for this project:
 - Copy remote address
 - Edit local app's remote address with new remote address
 - Push
+
+## How Github Workflows Works
+
+In short, this section will serve as notes for how this is being built.
+
+These instructions concerns a very specific environment where the deploy environments for both test and prod are on a network-shared drive. Due to access to those servers only allowing logins via netid, and the difficulty associated with safely storing a non-personal login secret on GitHub for this case, the proposed solution for developers in this case is to use a self-hosted runner.
+
+Self-hosted runners are relatively simple to install and let us ignore those needs entirely provided you've already authenticated to the network share drive.
+
+### Environment requirements
+
+Due to the environment, the following must be true for the self-hosted runners to work:
+
+* You are on a UArizona network, whether a physical device on-premises or the VPN. 
+* You have already logged into the network share drive by trying to access it. This would have prompted for a username in the format `<netid>@arizona.edu` and your given password for your netid.
+
+### Setting up a self-hosted runner.
+
+1. Go to the repository you're trying to setup a runner for.
+2. Navigate to Settings > Actions > Runners > New self-hosted runner
+3. Choose your OS and architecture and follow the install instructions provided on the form.
+4. Verify that you can see the Runner on GitHub by refreshing the Runners page; you should see your newly configured Runner with a status of `Idle`.
+
+### Potential ideas for improvement
+
+* Could we potentially find a way to have infrastructure allow a shared login for this and let a given host machine serve as one singular runner point, so we can eliminate self-constructed environment needs here?
