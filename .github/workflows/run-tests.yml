@@ -27,20 +27,7 @@ jobs:
           echo "Installing dependencies..."
           npm install
 
-      - name: Start dev server in the background
-        shell: pwsh
+      - name: Run tests
         run: |
-          echo "Starting dev server..."
-          Start-Process -FilePath "npm" -ArgumentList "run dev" -NoNewWindow -RedirectStandardOutput "dev-server.log" -RedirectStandardError "dev-server-error.log" -PassThru | ForEach-Object { $_.Id } > dev-server.pid
-
-      - name: Wait for dev server to be ready
-        shell: pwsh
-        run: |
-          echo "Waiting for dev server to be ready..."
-          npx wait-on http://localhost:8080
-
-      - name: Stop dev server
-        shell: pwsh
-        run: |
-          echo "Stopping dev server..."
-          Stop-Process -Id (Get-Content dev-server.pid) -Force
+          echo "Running tests..."
+          npm test
