@@ -14,23 +14,23 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '18'
 
-      - name: Install dependencies
-        run: |
-          echo "Installing dependencies..."
-          npm install
+      # - name: Install dependencies
+      #   run: |
+      #     echo "Installing dependencies..."
+      #     npm install
 
-      - name: Build Project
-        run: |
-          echo "Building project..."
-          npm run build
+      # - name: Build Project
+      #   run: |
+      #     echo "Building project..."
+      #     npm run build
 
       - name: Debug secrets
         run: |
@@ -41,7 +41,7 @@ jobs:
         run: |
           net use \\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu /user:${{ secrets.NETWORK_USERNAME }} "${{ secrets.NETWORK_PASSWORD }}"
 
-      - name: Move to beta site
-        run: |
-          echo "Moving dist/ to beta site..."
-          npm run deploy:beta
+      # - name: Move to beta site
+      #   run: |
+      #     echo "Moving dist/ to beta site..."
+      #     npm run deploy:beta
