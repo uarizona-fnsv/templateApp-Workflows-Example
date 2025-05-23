@@ -18,7 +18,7 @@ async mounted() {
 	api.fetchBuildings()
 	const confirmed = await ui.confirm({
 		title: 'Confirm',
-		body: 'Everything is Fine',
+		body: 'Everything is Fine, and you should see this text on the beta site.',
 		type: 'Ok',  // 'YesNo' or 'Ok'
 	})
 	if (confirmed) {
