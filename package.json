@@ -12,8 +12,7 @@
     "build:deploy:beta": "npm run build && npm run deploy:beta",
     "build:deploy:prod": "npm run build && npm run deploy:prod",
     "dev": "vite",
-    "preview": "vite preview",
-    "test": "vitest run"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
@@ -26,12 +25,8 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/vue": "^8.1.0",
-    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.2.2",
-    "vite-plugin-vuetify": "^2.1.0",
-    "vitest": "^3.1.4",
-    "wait-on": "^8.0.3"
+    "vite-plugin-vuetify": "^2.1.0"
   }
 }
