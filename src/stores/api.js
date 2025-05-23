@@ -76,15 +76,15 @@ actions: {
         .then(data => console.log("Secure Endpoint:", data))
     },
 
-    fetchRequestAccess() {
+    fetchRequestAccess(payload) {
         console.log("Action: Request App Permission")
         return fetch(this.commonApiUrl + '/requestAccess', {
             method: 'POST',
-            headers: { ...this.headers, 'content-type': 'application/text' },
-            body: JSON.stringify({ appName: import.meta.env.VITE_APP_NAME }),
+            headers: this.headers,
+            body: JSON.stringify(payload),
           })
-          .then(response => response.json())
-          .then(data => console.log("Request Sent"))
+          //.then(response => response.json())
+          //.then(data => console.log("Request Sent", data))
     },
 
     // EXAMPLE FETCH - Buildings from Space Database

@@ -1,0 +1,50 @@
+name: Build and move to beta site
+run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
+
+on:
+  push:
+    # types: [closed]
+    branches:
+      - main
+
+jobs:
+  execute-beta-build-deploy:
+    # if: ${{ github.event.pull_request.merged == true }}
+    name: Execute Build / Beta Deploy
+    runs-on: self-hosted
+    environment: "daltont runner env"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Build Project
+        run: |
+          echo "Building project..."
+          npm run build
+
+      - name: Debug secrets
+        run: |
+          echo "Debugging secrets..."
+          echo "Username: ${{ secrets.NETWORK_USERNAME }}"
+
+      - name: Authenticate to Network Share (Beta)
+        run: |
+          net use \\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu /user:${{ secrets.NETWORK_USERNAME }} "${{ secrets.NETWORK_PASSWORD }}"
+
+      - name: Move to beta site
+        run: |
+          echo "Moving dist/ to beta site..."
+          robocopy dist "\\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu\TemplateApp" /E /NFL /NDL /NJH /NJS /NC /NS
+          if %ERRORLEVEL% LEQ 1 exit 0
+          exit %ERRORLEVEL%

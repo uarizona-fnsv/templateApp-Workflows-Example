@@ -13,7 +13,7 @@ const router = createRouter({
 			name: 'Home',
 			component: Home,
 			beforeEnter() { ui.pageTitle="TemplateApp" },
-			//meta: { required: ['isUser'] }, // Example usage
+			meta: { required: ['isUser'] }, // Example usage
 		},
 		{
 			path: '/About',
@@ -71,7 +71,9 @@ router.beforeEach(async (to, from) => {
 		// If user does not have a token, and doesn't have at ticket (from the URL), go to Webauth to get a ticket. 
 		// User will return back to this router guard, there will be a page reload, and the URL will then contain a ticket.
 		if (!ticket) { 
-			window.location.replace(webAuthURL + serviceURL + location)			
+			window.location.replace(webAuthURL + serviceURL + location)
+			// Prevent navigation to any route (including NotAuthorized) while redirecting to WebAuth
+			return false			
 		} else {
 			
 			// Having grabbed a ticket from Webauth.  Use it to get token, set cookie, set state token.
