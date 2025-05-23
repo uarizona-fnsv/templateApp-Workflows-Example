@@ -46,6 +46,8 @@ jobs:
         run: |
           echo "Moving dist/ to beta site..."
           robocopy dist "\\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu\TemplateApp" /E /NFL /NDL /NJH /NJS /NC /NS
-          if %ERRORLEVEL% LEQ 1 exit 0
-          exit %ERRORLEVEL%
-        shell: cmd 
+          if ($LASTEXITCODE -le 1) {
+            exit 0
+          } else {
+            exit $LASTEXITCODE
+          }
