@@ -1,16 +1,16 @@
-name: Execute Tests on Pull Request
-
+name: Build and move to beta site
 run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
 
 on:
   pull_request:
+    types: [closed]
     branches:
       - main
-      - develop
 
 jobs:
-  execute-tests-of-run-dev-server:
-    name: Execute Tests of Run Dev Server
+  execute-beta-build-deploy:
+    if: ${{ github.event.pull_request.merged == true }}
+    name: Execute Build / Beta Deploy
     runs-on: self-hosted
 
     steps:
@@ -27,7 +27,12 @@ jobs:
           echo "Installing dependencies..."
           npm install
 
-      - name: Run tests
+      - name: Build Project
         run: |
-          echo "Running tests..."
-          npm test
+          echo "Building project..."
+          npm run build
+
+      - name: Move to beta site
+        run: |
+          echo "Moving dist/ to beta site..."
+          npm run deploy:beta

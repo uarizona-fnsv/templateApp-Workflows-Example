@@ -147,3 +147,7 @@ Due to the environment, the following must be true for the self-hosted runners t
 ### Potential ideas for improvement
 
 * Could we potentially find a way to have infrastructure allow a shared login for this and let a given host machine serve as one singular runner point, so we can eliminate self-constructed environment needs here?
+
+### Nuisances and snares to note
+
+* Check your email settings for runners; this process, using your own runner or else, could trigger multiple emails, so you may want to unsubscribe from them if you're receiving too many.
