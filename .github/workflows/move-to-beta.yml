@@ -12,6 +12,7 @@ jobs:
     # if: ${{ github.event.pull_request.merged == true }}
     name: Execute Build / Beta Deploy
     runs-on: self-hosted
+    environment: "daltont runner env"
 
     steps:
       # - name: Checkout code
