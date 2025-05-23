@@ -1,0 +1,36 @@
+name: Build and move to beta site
+run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
+
+on:
+  merge:
+    branches:
+      - main
+
+jobs:
+  execute-tests-of-run-dev-server:
+    name: Execute Tests of Run Dev Server
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Build Project
+        run: |
+          echo "Building project..."
+          npm run build
+
+      - name: Move to beta site
+        run: |
+          echo "Moving dist/ to beta site..."
+          npm run deploy:beta

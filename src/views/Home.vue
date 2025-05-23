@@ -18,7 +18,7 @@ async mounted() {
 	api.fetchBuildings()
 	const confirmed = await ui.confirm({
 		title: 'Confirm',
-		body: 'Everything is Fine',
+		body: 'Everything is Fine, and this message is proof that my merge workflow is working.',
 		type: 'Ok',  // 'YesNo' or 'Ok'
 	})
 	if (confirmed) {
