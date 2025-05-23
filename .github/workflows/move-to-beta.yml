@@ -2,10 +2,10 @@ name: Build and move to beta site
 run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
 
 on:
-  pull_request:
+  push:
     # types: [closed]
     branches:
-      - main
+      - test_trigger_branch
 
 jobs:
   execute-beta-build-deploy:
