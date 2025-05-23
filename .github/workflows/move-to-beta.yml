@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  execute-tests-of-run-dev-server:
-    name: Execute Tests of Run Dev Server
+  execute-beta-build-deploy:
+    name: Execute Build / Beta Deploy
     runs-on: self-hosted
 
     steps:
