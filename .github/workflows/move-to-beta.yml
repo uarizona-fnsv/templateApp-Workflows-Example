@@ -32,9 +32,14 @@ jobs:
           echo "Building project..."
           npm run build
 
+      - name: Debug secrets
+        run: |
+          echo "Debugging secrets..."
+          echo "Username: ${{ secrets.NETWORK_USERNAME }}"
+
       - name: Authenticate to Network Share (Beta)
         run: |
-          net use \\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu /user:${{ secrets.NETWORK_USERNAME }} ${{ secrets.NETWORK_PASSWORD }}
+          net use \\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu /user:${{ secrets.NETWORK_USERNAME }} "${{ secrets.NETWORK_PASSWORD }}"
 
       - name: Move to beta site
         run: |
