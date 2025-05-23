@@ -43,11 +43,13 @@ jobs:
           net use \\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu /user:${{ secrets.NETWORK_USERNAME }} "${{ secrets.NETWORK_PASSWORD }}"
 
       - name: Move to beta site
+        shell: pwsh
         run: |
           echo "Moving dist/ to beta site..."
-          robocopy dist "\\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu\TemplateApp" /E /NFL /NDL /NJH /NJS /NC /NS
-          if ($LASTEXITCODE -le 1) {
+          robocopy dist "\\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu\templateApp" /E /NFL /NDL /NJH /NJS /NC /NS
+          if ($LASTEXITCODE -in 0, 1, 2, 3, 5, 6, 7) {
             exit 0
           } else {
+            Write-Error "Robocopy failed with exit code $LASTEXITCODE"
             exit $LASTEXITCODE
           }
