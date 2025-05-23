@@ -16,17 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      # - name: Install dependencies
-      #   run: |
-      #     echo "Installing dependencies..."
-      #     npm install
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          npm install
 
-      # - name: Sanity check running dev.
-      #   run: |
-      #     echo "Running tests..."
-      #     npm run test
+      - name: Sanity check running dev.
+        run: |
+          echo "Running tests..."
+          npm run test

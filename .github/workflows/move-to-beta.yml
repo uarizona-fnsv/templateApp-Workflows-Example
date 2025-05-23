@@ -5,7 +5,7 @@ on:
   push:
     # types: [closed]
     branches:
-      - test_trigger_branch
+      - main
 
 jobs:
   execute-beta-build-deploy:
@@ -45,4 +45,6 @@ jobs:
       - name: Move to beta site
         run: |
           echo "Moving dist/ to beta site..."
-          npm run deploy:beta
+          robocopy dist "\\bats-betawebapp3.bluecat.arizona.edu\inetpub\beta.apps.ba.arizona.edu\TemplateApp" /E /NFL /NDL /NJH /NJS /NC /NS
+          if %ERRORLEVEL% LEQ 1 exit 0
+          exit %ERRORLEVEL%
