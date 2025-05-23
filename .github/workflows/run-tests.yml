@@ -29,4 +29,4 @@ jobs:
       - name: Sanity check running dev.
         run: |
           echo "Running tests..."
-          npm run dev
+          npm run test
