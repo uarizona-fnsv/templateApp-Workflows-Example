@@ -122,6 +122,15 @@ Below are the scripts available for this project:
 - Edit local app's remote address with new remote address
 - Push
 
+## TLDR Github Workflows.
+
+Files exist in `.github/workflows` and these files serve as instructions for a `runner` to execute when certain actions are taken with the repository.
+
+* These can do anything you can script, basically. If you run a specific sequence of commands to build and run an app, or build and deploy it, you can just repeat those as a series of commands in a given `job` which is just a construct to group various steps.
+* This repository has two scripts inside of it
+  * A simple script when a pull request happens or is updated that'll install npm, build the app, and run a simple test suite.
+  * A simple script when `main` branch is updated to build and deploy to beta.apps
+
 ## How Github Workflows Works
 
 In short, this section will serve as notes for how this is being built.
@@ -135,7 +144,7 @@ Self-hosted runners are relatively simple to install and let us ignore those nee
 Due to the environment, the following must be true for the self-hosted runners to work:
 
 * You are on a UArizona network, whether a physical device on-premises or the VPN. 
-* You have already logged into the network share drive by trying to access it. This would have prompted for a username in the format `<netid>@arizona.edu` and your given password for your netid.
+* User secrets are managed through GitHub Secrets, which lets you safely and securely store environment secrets on a per-repo basis. All runners can use a pre-defined environment with your netid and password safely stored.
 
 ### Setting up a self-hosted runner.
 
@@ -147,3 +156,4 @@ Due to the environment, the following must be true for the self-hosted runners t
 ### Potential ideas for improvement
 
 * Could we potentially find a way to have infrastructure allow a shared login for this and let a given host machine serve as one singular runner point, so we can eliminate self-constructed environment needs here?
+  * Solved through GitHub Secrets
