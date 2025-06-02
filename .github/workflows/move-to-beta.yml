@@ -2,6 +2,18 @@ name: Build and move to beta site
 run-name: ${{ github.event_name }} - ${{ github.actor }} - ${{ github.workflow }}
 
 on:
+  ## This is an example for pull requests being merged, see the if condition for event merged==true.
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - main
+  #     - develop
+
+  ## This is an example for a tagged release
+  # release:
+  #   types: [published]  
+
+  ## This is just a simple push to main, we ideally would have a more robust git strategy here.
   push:
     # types: [closed]
     branches:
@@ -9,9 +21,16 @@ on:
 
 jobs:
   execute-beta-build-deploy:
+    
+    # If clause for pull_request being merged
     # if: ${{ github.event.pull_request.merged == true }}
+    # If clause for a published release, major/minor version changes ala v1.0.0, 1.1, 2.0, etc.
+    # if: ${{ github.event.release.tag_name =~ '^v[0-9]+\\.[0-9]+\\.0$' }}
+    
     name: Execute Build / Beta Deploy
     runs-on: self-hosted
+    # Or an example where we use labels to specify types of runners.
+    # runs-on: [self-hosted, windows]
     environment: "daltont runner env"
 
     steps:
