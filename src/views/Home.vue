@@ -18,7 +18,7 @@ async mounted() {
 	api.fetchBuildings()
 	const confirmed = await ui.confirm({
 		title: 'Confirm',
-		body: 'Everything is Fine, and Nobody likes you when you're 33.s',
+		body: "Everything is Fine, and Nobody likes you when you're 33.s",
 		type: 'Ok',  // 'YesNo' or 'Ok'
 	})
 	if (confirmed) {
